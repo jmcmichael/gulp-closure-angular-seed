@@ -28,5 +28,6 @@
     "karma-jasmine": "^0.1.5",
     "karma-spec-reporter": "0.0.13",
     "protractor": "^0.22.0"
-  }
+  },
+  "dependencies": {}
 }
