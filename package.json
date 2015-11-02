@@ -23,6 +23,7 @@
     "grunt-contrib-connect": "^0.8.0",
     "grunt-shell": "^1.1.1",
     "gulp": "^3.9.0",
+    "gulp-exec": "^2.1.2",
     "gulp-plovr": "0.0.1",
     "gulp-sourcemaps": "^1.6.0",
     "jasmine-spec-reporter": "^0.6.0",
