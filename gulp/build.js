@@ -1,6 +1,7 @@
 'use strict';
 var gulp = require('gulp'),
 //exec = require('gulp-exec'),
+  glob = require('globby').sync,
   exec = require('child_process').exec;
 
 var conf = {
@@ -8,18 +9,18 @@ var conf = {
   app: 'app/js/app.js',
 
   // get all states / modules
-  states: [
+  states: glob([
     'app/states/**/*.js',
     '!app/states/**/*.pageobject.js',
     '!app/states/**/*.scenario.js',
     '!app/states/**/*.spec.js'
-  ].join(' '),
+  ]).join(' '),
 
   // get all components
-  components: [
+  components: glob([
     'app/components/**/*.js',
     '!app/components/**/*.spec.js'
-  ].join(' '),
+  ]).join(' ')
 
 };
 
@@ -43,8 +44,16 @@ gulp.task('compile', function() {
     '--generate_exports ' +                            // keep @export notated code
     '--manage_closure_dependencies ' +
     '--js closure/library/base.js ' +                  // don't add 'goog.' stuff to script
-    '--js ' + conf.app +
-    '--js ' + conf.states +
-    '--js ' + conf.components +
-    '--js_output_file app/js/app.min.js', options);
+    '--js ' + conf.app + ' ' +
+    '--js ' + conf.states + ' ' +
+    '--js ' + conf.components + ' ' +
+    '--js_output_file app/js/app.min.js',
+    options,
+    function(error, stdout, stderr) {
+      console.log('stdout: ', stdout);
+      console.log('stderr: ', stderr);
+      if (error !== null) {
+        console.log('exec error: ', error);
+      }
+    });
 });
