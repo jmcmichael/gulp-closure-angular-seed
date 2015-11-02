@@ -37,7 +37,7 @@ gulp.task('compile', function() {
   };
   exec('java -jar closure/compiler.jar ' +
     '--compilation_level ADVANCED_OPTIMIZATIONS ' +
-      // '--formatting PRETTY_PRINT ' +
+    '--formatting PRETTY_PRINT ' +
     '--language_in ECMASCRIPT5_STRICT ' +
     '--angular_pass ' +                                // inject dependencies automatically
     '--externs closure/externs/angular.js ' +          // angular.d -> angular.module
