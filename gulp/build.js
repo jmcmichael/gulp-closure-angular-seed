@@ -30,7 +30,7 @@ console.log(conf.components + '\n');
 
 gulp.task('build', function() {
   var opts = {
-    plovr_path: path.join(__dirname, '../node_modules/plovr/bin/plovr.jar'),
+    plovr_path: path.join(__dirname, '../plovr/plovr-1d46538a.jar'),
     debug: true
   };
 
@@ -61,7 +61,8 @@ gulp.task('compile', function() {
     '--js ' + conf.app + ' ' +
     '--js ' + conf.states + ' ' +
     '--js ' + conf.components + ' ' +
-    '--js_output_file app/js/app.min.js',
+    '--js_output_file app/js/app.min.js ' +
+    '--create_source_map %outname%.map',
     options,
     function(error, stdout, stderr) {
       console.log('stdout: ', stdout);
