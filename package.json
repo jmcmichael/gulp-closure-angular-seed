@@ -25,6 +25,7 @@
     "grunt-shell": "^1.1.1",
     "gulp": "^3.9.0",
     "gulp-exec": "^2.1.2",
+    "gulp-livereload": "^3.8.1",
     "gulp-plovr": "0.0.1",
     "gulp-sourcemaps": "^1.6.0",
     "jasmine-spec-reporter": "^0.6.0",
@@ -35,6 +36,7 @@
     "karma-jasmine": "^0.1.5",
     "karma-spec-reporter": "0.0.13",
     "path": "^0.12.7",
+    "plovr": "^4.1.1",
     "protractor": "^0.22.0",
     "require-dir": "^0.3.0",
     "vinyl-paths": "^2.0.0"

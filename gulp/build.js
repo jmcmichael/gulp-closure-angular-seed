@@ -1,8 +1,9 @@
 'use strict';
 var gulp = require('gulp'),
-//exec = require('gulp-exec'),
   glob = require('globby').sync,
-  exec = require('child_process').exec;
+  exec = require('child_process').exec,
+  path = require('path'),
+  plovr = require('gulp-plovr');
 
 var conf = {
   // app
@@ -23,6 +24,19 @@ var conf = {
   ]).join(' ')
 
 };
+
+console.log(conf.states + '\n');
+console.log(conf.components + '\n');
+
+gulp.task('build', function() {
+  var opts = {
+    plovr_path: path.join(__dirname, '../node_modules/plovr/bin/plovr.jar'),
+    debug: true
+  };
+
+  return gulp.src(['plovr/config-build.json'])
+    .pipe(plovr(opts));
+});
 
 gulp.task('compile', function() {
   var options = {

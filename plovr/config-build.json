@@ -1,0 +1,44 @@
+{
+  "id": "module-example",
+  "inputs": ["../app/js/app.js", "../app/states/first/first-controller.js", "../app/states/first/first-module.js", "../app/states/second/second-controller.js", "../app/states/second/second-module.js", "../app/states/third/one/one-controller.js", "../app/states/third/one/one-module.js", "../app/states/third/third-controller.js", "../app/states/third/third-module.js", "../app/states/third/two/two-controller.js", "../app/states/third/two/two-module.js", "../app/components/directives/version-directive.js", "../app/components/filters/check-filter.js", "../app/components/services/version-service.js"],
+  "mode": "ADVANCED",
+  "language-in": "ECMASCRIPT5_STRICT",
+  "level": "VERBOSE",
+  "externs": "../closure/externs/angular.js",
+  "pretty-print": true,
+  "output-file": "../app/js/app.min.js",
+  "output-charset": "UTF-8",
+  "fingerprint": true,
+  "define": {
+    "goog.DEBUG": true
+  },
+  "experimental-compiler-options": {
+    "checkShadowVars": "ERROR",
+    "languageIn": "ECMASCRIPT5"
+  },
+
+//  "modules": {
+//    "app": {
+//      "inputs": "app_init.js",
+//      "deps": []
+//    },
+//    "api": {
+//      "inputs": "api_init.js",
+//      "deps": "app"
+//    },
+//    "settings": {
+//      "inputs": "settings_init.js",
+//      "deps": "app"
+//    }
+//  },
+//  "module-output-path": "../../build/module-example/module_%s.js",
+
+  // For a local HTML page, production_uri happens to have the same value as
+  // output_path, but for a production system, they would likely be different.
+//  "module-production-uri": "../../build/module-example/module_%s.js",
+
+  // This enables an experimental modules feature, and may not be
+  // appropriate for most users. Be sure you understand what this does
+  // before enabling it: http://plovr.com/options.html#global-scope-name
+  "global-scope-name": "__plovr__"
+}
