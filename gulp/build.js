@@ -3,7 +3,6 @@ var gulp = require('gulp'),
   glob = require('globby').sync,
   path = require('path'),
   debug = require('gulp-debug'),
-  filter = require('gulp-filter'),
   compiler = require('gulp-closure-compiler');
 
 gulp.task('build:js', function() {
