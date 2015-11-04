@@ -1,7 +1,6 @@
 'use strict';
 var gulp = require('gulp'),
   glob = require('globby').sync,
-  exec = require('child_process').exec,
   path = require('path'),
   debug = require('gulp-debug'),
   filter = require('gulp-filter'),
@@ -16,7 +15,7 @@ gulp.task('build:js', function() {
       '!**/*.scenario.js',
       '!**/*.spec.js'
     ])
-    .pipe(debug({title: 'js:'}))
+    .pipe(debug({title: 'pre-compile:'}))
     .pipe(compiler({
       compilerPath: 'closure/compiler.jar',
       fileName: 'app.min.js',
