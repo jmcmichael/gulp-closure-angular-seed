@@ -2,6 +2,7 @@
 var gulp = require('gulp'),
   glob = require('globby').sync,
   exec = require('child_process').exec,
+  shell = require('gulp-shell'),
   path = require('path'),
   plovr = require('gulp-plovr');
 
@@ -21,24 +22,17 @@ var conf = {
   components: glob([
     'app/components/**/*.js',
     '!app/components/**/*.spec.js'
-  ]).join(' ')
+  ]).join(' '),
 
+  // plovr conf
+  plovr: 'plovr/plovr-1d46538a.jar',
+  source_map: 'app/js'
 };
 
 console.log(conf.states + '\n');
 console.log(conf.components + '\n');
 
 gulp.task('build', function() {
-  var opts = {
-    plovr_path: path.join(__dirname, '../plovr/plovr-1d46538a.jar'),
-    debug: true
-  };
-
-  return gulp.src(['plovr/config-build.json'])
-    .pipe(plovr(opts));
-});
-
-gulp.task('compile', function() {
   var options = {
     continueOnError: false, // default = false, true means don't emit error event
     pipeStdout: false, // default = false, true means stdout is written to file.contents

@@ -17,6 +17,7 @@
     "url": "https://github.com/zeMirco/nghellostyle"
   },
   "devDependencies": {
+    "closure-compiler-stream": "^0.1.15",
     "del": "^2.0.2",
     "globby": "^3.0.1",
     "google-closure-compiler": "^20151015.0.0",
@@ -28,6 +29,7 @@
     "gulp-exec": "^2.1.2",
     "gulp-livereload": "^3.8.1",
     "gulp-plovr": "0.0.1",
+    "gulp-shell": "^0.5.1",
     "gulp-sourcemaps": "^1.6.0",
     "jasmine-spec-reporter": "^0.6.0",
     "karma": "^0.12.24",
