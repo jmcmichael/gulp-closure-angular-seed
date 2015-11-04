@@ -11,7 +11,7 @@ my.first.Ctrl = function() {
 
   /**
    * @type {Array}
-   * @expose
+   * @export
    */
   this.animals = ['dog', 'cat', 'mouse'];
 

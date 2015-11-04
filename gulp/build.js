@@ -2,9 +2,10 @@
 var gulp = require('gulp'),
   glob = require('globby').sync,
   exec = require('child_process').exec,
-  shell = require('gulp-shell'),
   path = require('path'),
-  plovr = require('gulp-plovr');
+  debug = require('gulp-debug'),
+  filter = require('gulp-filter'),
+  compiler = require('gulp-closure-compiler');
 
 var conf = {
   // app
@@ -16,13 +17,15 @@ var conf = {
     '!app/states/**/*.pageobject.js',
     '!app/states/**/*.scenario.js',
     '!app/states/**/*.spec.js'
-  ]).join(' '),
+  ]),
 
   // get all components
   components: glob([
     'app/components/**/*.js',
     '!app/components/**/*.spec.js'
-  ]).join(' '),
+  ]),
+
+  externs: glob('closure/externs/*.js'),
 
   // plovr conf
   plovr: 'plovr/plovr-1d46538a.jar',
@@ -33,6 +36,37 @@ console.log(conf.states + '\n');
 console.log(conf.components + '\n');
 
 gulp.task('build', function() {
+  return gulp.src([
+      'app/js/app.js',
+      'app/states/**/*.js',
+      'app/components/**/*.js',
+      '!**/*.pageobject.js',
+      '!**/*.scenario.js',
+      '!**/*.spec.js'
+    ])
+    .pipe(debug({title: 'after filter:'}))
+    .pipe(compiler({
+      compilerPath: 'closure/compiler.jar',
+      fileName: 'app.min.js',
+      compilerFlags: {
+        closure_entry_point: 'app',
+        angular_pass: true,
+        compilation_level: 'ADVANCED_OPTIMIZATIONS',
+        //define: [
+        //  "goog.DEBUG=false"
+        //],
+        externs: conf.externs,
+        only_closure_dependencies: true,
+        // .call is super important, otherwise Closure Library will not work in strict mode.
+        output_wrapper: '(function(){%output%}).call(window);',
+        warning_level: 'DEFAULT',
+        create_source_map: '%outname%.map'
+      }
+    }))
+    .pipe(gulp.dest('app/js'));
+});
+
+gulp.task('build:exec', function() {
   var options = {
     continueOnError: false, // default = false, true means don't emit error event
     pipeStdout: false, // default = false, true means stdout is written to file.contents
@@ -48,13 +82,13 @@ gulp.task('build', function() {
     '--formatting PRETTY_PRINT ' +
     '--language_in ECMASCRIPT5_STRICT ' +
     '--angular_pass ' +                                // inject dependencies automatically
-    '--externs closure/externs/angular.js ' +          // angular.d -> angular.module
+    '--externs closure/externs/angular-1.3.js ' +          // angular.d -> angular.module
     '--generate_exports ' +                            // keep @export notated code
     '--manage_closure_dependencies ' +
     '--js closure/library/base.js ' +                  // don't add 'goog.' stuff to script
     '--js ' + conf.app + ' ' +
-    '--js ' + conf.states + ' ' +
-    '--js ' + conf.components + ' ' +
+    '--js ' + conf.states.join(' ') + ' ' +
+    '--js ' + conf.components.join(' ') + ' ' +
     '--js_output_file app/js/app.min.js ' +
     '--create_source_map %outname%.map',
     options,

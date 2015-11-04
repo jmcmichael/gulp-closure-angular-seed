@@ -21,7 +21,7 @@ my.third.one.Ctrl = function($controller) {
 
   /**
    * @type {String}
-   * @expose
+   * @export
    */
   this.label = 'some other label from third.one controller';
 
@@ -30,7 +30,7 @@ my.third.one.Ctrl = function($controller) {
    * function here.
    *
    * @type {Object}
-   * @expose
+   * @export
    */
   this.parent = $controller(my.third.Ctrl);
 

@@ -45,7 +45,7 @@ module.exports = function(grunt) {
           // '--formatting PRETTY_PRINT ' +
           '--language_in ECMASCRIPT5_STRICT ' +
           '--angular_pass ' +                                // inject dependencies automatically
-          '--externs closure/externs/angular.js ' +          // angular.d -> angular.module
+          '--externs closure/externs/angular-1.3.js ' +          // angular.d -> angular.module
           '--generate_exports ' +                            // keep @export notated code
           '--manage_closure_dependencies ' +
           '--js closure/library/base.js ' +                  // don't add 'goog.' stuff to script

@@ -17,7 +17,7 @@ my.third.Ctrl = function() {
 
   /**
    * @type {String}
-   * @expose
+   * @export
    */
   this.label = 'some label from third controller';
 
