@@ -1,7 +1,6 @@
 'use strict';
 var gulp = require('gulp'),
   glob = require('globby').sync,
-  path = require('path'),
   debug = require('gulp-debug'),
   compiler = require('gulp-closure-compiler');
 
