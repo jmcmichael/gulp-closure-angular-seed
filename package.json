@@ -22,6 +22,7 @@
     "bower": "^1.6.5",
     "browser-sync": "^2.9.11",
     "del": "^2.0.2",
+    "event-stream": "^3.3.2",
     "globby": "^3.0.1",
     "grunt": "^0.4.5",
     "grunt-contrib-connect": "^0.8.0",
@@ -36,10 +37,13 @@
     "karma-firefox-launcher": "latest",
     "karma-jasmine": "latest",
     "karma-spec-reporter": "latest",
+    "main-bower-files": "^2.9.0",
     "path": "latest",
     "protractor": "latest",
     "require-dir": "^0.3.0",
     "vinyl-paths": "^2.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "wiredep": "^2.2.2"
+  }
 }

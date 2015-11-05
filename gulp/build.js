@@ -2,18 +2,28 @@
 var gulp = require('gulp'),
   glob = require('globby').sync,
   debug = require('gulp-debug'),
+  wiredep = require('wiredep').stream,
+  root = require('app-root-path'),
   compiler = require('gulp-closure-compiler');
 
+gulp.task('wiredep', function() {
+  gulp.src(root + '/app/index.html')
+    .pipe(wiredep())
+    .pipe(gulp.dest(root + '/.tmp/app'));
+});
+
 gulp.task('build:js', function() {
-  return gulp.src([
-      'closure/library/**/*.js',
-      'app/js/app.js',
-      'app/states/**/*.js',
-      'app/components/**/*.js',
-      '!**/*.pageobject.js',
-      '!**/*.scenario.js',
-      '!**/*.spec.js'
-    ])
+  var clientScripts = [
+    'closure/library/**/*.js',
+    'app/js/app.js',
+    'app/states/**/*.js',
+    'app/components/**/*.js',
+    '!**/*.pageobject.js',
+    '!**/*.scenario.js',
+    '!**/*.spec.js'
+  ];
+
+  return gulp.src(clientScripts)
     .pipe(debug({title: 'pre-compile:'}))
     .pipe(compiler({
       compilerPath: 'closure/compiler.jar',
@@ -21,7 +31,7 @@ gulp.task('build:js', function() {
       continueWithWarnings: true,
       compilerFlags: {
         closure_entry_point: 'app',
-        debug: true,
+        debug: false,
         summary_detail_level: 3,
         angular_pass: true,
         formatting: 'PRETTY_PRINT',
@@ -37,7 +47,7 @@ gulp.task('build:js', function() {
       }
     }))
     .pipe(debug({title: 'post-compile:'}))
-    .pipe(gulp.dest('app/js'));
+    .pipe(gulp.dest(root + '/.tmp/app/js'));
 });
 
-gulp.task('build', ['build:js']);
+gulp.task('build', ['wiredep', 'build:js']);

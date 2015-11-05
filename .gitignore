@@ -2,5 +2,5 @@
 coverage/
 node_modules/
 bower_components/
-tmp/
+.tmp/*
 compiler.jar
