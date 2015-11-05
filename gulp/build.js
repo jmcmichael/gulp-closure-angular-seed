@@ -26,9 +26,6 @@ gulp.task('build:js', function() {
         angular_pass: true,
         formatting: 'PRETTY_PRINT',
         compilation_level: 'ADVANCED_OPTIMIZATIONS',
-        //define: [
-        //  "goog.DEBUG=false"
-        //],
         externs: glob('closure/externs/*.js'),
         only_closure_dependencies: true,
         export_local_property_definitions: true,
