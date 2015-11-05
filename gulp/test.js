@@ -11,9 +11,9 @@ gulp.task('test:unit', function (done) {
   }, done).start();
 });
 
-gulp.task('test:e2e', function(callback) {
+gulp.task('test:e2e', ['serve'], function(callback) {
   gulp
-    .src([root + '/app/states/**/*.scenario.js'])
+    .src([root + '/test/e2e/scenarios.js', root + '/app/states/**/*.scenario.js'])
     .pipe(e2eServer({
       'configFile': root + '/test/e2e/protractor.conf.js',
       'debug': false,
