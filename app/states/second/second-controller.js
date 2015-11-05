@@ -23,10 +23,11 @@ goog.provide('my.second.Ctrl');
  * @param {angular.$window} $window
  * @constructor
  * @export
+ * @nocollapse
  * @ngInject
  */
 my.second.Ctrl = function($window) {
-
+  console.log('--- my.second.Ctrl instantiated.');
   /**
    * `text` cannot by used in template because it is not exposed.
    * But it is referenced in `say()` method so compiler keeps it.
@@ -66,6 +67,7 @@ my.second.Ctrl = function($window) {
  * @export
  */
 my.second.Ctrl.prototype.say = function() {
+  console.log('secondCtrl.say() called.');
   var $window = this.$window;
   $window.alert(this.text);
 };

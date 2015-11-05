@@ -2,10 +2,10 @@
 
 exports.config = {
 
-  //specs: [
-  //  'scenarios.js',
-  //  '../../app/states/**/*.scenario.js'
-  //],
+  specs: [
+    'scenarios.js',
+    '../../app/states/**/*.scenario.js'
+  ],
 
   capabilities: {
     'browserName': 'firefox'
