@@ -13,7 +13,11 @@ var conf = {
     '!**/*.spec.js'
   ],
   libs: [
-    'closure/library/**/*.js'
+    'node_modules/closure-library/closure/goog/base.js',
+    'node_modules/closure-library/closure/goog/deps.js'
+  ],
+  externs: [
+    'closure/externs/*.js'
   ],
   styles: [
     'app/**/*.sass'
