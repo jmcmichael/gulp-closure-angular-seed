@@ -30,7 +30,7 @@ gulp.task('build:scripts', function() {
         debug: false,
         summary_detail_level: 3,
         angular_pass: true,
-        formatting: 'PRETTY_PRINT',
+        //formatting: 'PRETTY_PRINT',
         compilation_level: 'ADVANCED_OPTIMIZATIONS',
         externs: glob(conf.externs),
         only_closure_dependencies: true,
@@ -43,7 +43,6 @@ gulp.task('build:scripts', function() {
         //create_source_map: conf.dirs.temp + '/app/js/%outname%.map'
       }
     }))
-    .pipe(rev())
     .pipe(debug({title: 'post-compile/rev:'}))
     .pipe(gulp.dest(conf.dirs.dist + '/app/js'));
 });
