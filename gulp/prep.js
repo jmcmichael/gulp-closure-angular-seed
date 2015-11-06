@@ -5,6 +5,12 @@
  *  distribution by the 'build' task.
  **/
 
+var gulp = require('gulp'),
+  conf = require('./gulp-conf.js').conf,
+  glob = require('globby').sync,
+  debug = require('gulp-debug'),
+  wiredep = require('wiredep').stream;
+
 // just copy app JS to /.tmp w/o compilation for development serving
 // used by serve task
 gulp.task('prep:scripts', function(cb) {
