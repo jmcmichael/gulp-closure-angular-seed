@@ -1,18 +1,19 @@
+/**
+*  Build tasks take compiled assets, prepared by various compile tasks, and
+*  do any final preparatory/packaging work necessary for production, copying the
+*  final results to /dist
+*/
+
 'use strict';
 var gulp = require('gulp'),
   glob = require('globby').sync,
   debug = require('gulp-debug'),
   wiredep = require('wiredep').stream,
-  root = require('app-root-path'),
   compiler = require('gulp-closure-compiler');
 
-gulp.task('wiredep', function() {
-  gulp.src(root + '/app/index.html')
-    .pipe(wiredep())
-    .pipe(gulp.dest(root + '/.tmp/app'));
-});
-
-gulp.task('build:js', function() {
+// runs scripts through Closure compiler, produces fingerprinted, minified ES5 js
+// and sourcemap, injects links into index.html and copies the results to /dist
+gulp.task('build:scripts', function() {
   var clientScripts = [
     'closure/library/**/*.js',
     'app/js/app.js',
@@ -26,7 +27,7 @@ gulp.task('build:js', function() {
   return gulp.src(clientScripts)
     .pipe(debug({title: 'pre-compile:'}))
     .pipe(compiler({
-      compilerPath: 'closure/compiler.jar',
+      compilerPath: 'node_modules/closurecompiler/compiler/compiler.jar',
       fileName: 'app.min.js',
       continueWithWarnings: true,
       compilerFlags: {
@@ -50,4 +51,15 @@ gulp.task('build:js', function() {
     .pipe(gulp.dest(root + '/.tmp/app/js'));
 });
 
-gulp.task('build', ['wiredep', 'build:js']);
+// concatenates, compiles, fingerprints, and injects link into index.html
+gulp.task('build:styles', function(cb) {
+  cb();
+});
+
+// identifies bower library dependencies, injects links into index.html
+// then replaces relevant library links with references to CDN versions
+gulp.task('build:wiredep', function() {
+
+});
+
+gulp.task('build', ['build:styles', 'build:scripts', 'build:wiredep']);

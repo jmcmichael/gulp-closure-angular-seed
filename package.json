@@ -21,6 +21,7 @@
     "app-root-path": "^1.0.0",
     "bower": "^1.6.5",
     "browser-sync": "^2.9.11",
+    "closurecompiler": "^1.5.2",
     "del": "^2.0.2",
     "event-stream": "^3.3.2",
     "globby": "^3.0.1",
@@ -30,6 +31,7 @@
     "gulp": "^3.9.0",
     "gulp-angular-protractor": "latest",
     "gulp-debug": "^2.1.2",
+    "gulp-sass": "^2.1.0",
     "jasmine-spec-reporter": "^0.6.0",
     "karma": "latest",
     "karma-chrome-launcher": "latest",
@@ -41,9 +43,8 @@
     "path": "latest",
     "protractor": "latest",
     "require-dir": "^0.3.0",
-    "vinyl-paths": "^2.0.0"
-  },
-  "dependencies": {
+    "vinyl-paths": "^2.0.0",
     "wiredep": "^2.2.2"
-  }
+  },
+  "dependencies": {}
 }
