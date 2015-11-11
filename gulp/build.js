@@ -24,6 +24,7 @@ gulp.task('build:scripts', function() {
       compilerPath: 'node_modules/closurecompiler/compiler/compiler.jar',
       fileName: 'app.min.js',
       createSourceMap: true,
+      fingerprint: true,
       continueWithWarnings: true,
       compilerFlags: {
         closure_entry_point: 'app',
