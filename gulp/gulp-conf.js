@@ -18,7 +18,7 @@ var conf = {
     'closure/externs/*.js'
   ],
   styles: [
-    'app/**/*.sass'
+    'app/**/*.styl'
   ],
   partials: [
     'app/**/*.tpl.html'
@@ -26,7 +26,8 @@ var conf = {
   dirs: {
     temp: root + '/.tmp',
     dist: root + '/dist'
-  }
+  },
+  index: root + '/app/index.html'
 };
 
 exports.conf = conf;

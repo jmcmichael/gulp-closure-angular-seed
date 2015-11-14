@@ -8,6 +8,7 @@
 var gulp = require('gulp'),
   conf = require('./gulp-conf.js').conf,
   root = require('app-root-path'),
+  rev = require('gulp-rev'),
   glob = require('globby').sync,
   debug = require('gulp-debug'),
   libs = require('main-bower-files'),
@@ -15,8 +16,10 @@ var gulp = require('gulp'),
   wiredep = require('wiredep').stream,
   inject = require('gulp-inject'),
   cdnizer = require('gulp-cdnizer'),
-  rev = require('gulp-rev'),
-  compiler = require('gulp-plovrator');
+  concat = require('gulp-concat'),
+  compiler = require('gulp-plovrator'),
+  stylus = require('gulp-stylus'),
+  sourcemaps = require('gulp-sourcemaps');
 
 
 gulp.task('build', function(cb) {
@@ -57,14 +60,24 @@ gulp.task('build:scripts', function() {
 });
 
 // concatenates, compiles, fingerprints, and injects link into index.html
-gulp.task('build:styles', function(cb) {
-  cb();
+gulp.task('build:styles', function() {
+  return gulp.src(conf.styles)
+    .pipe(concat('app.css'))
+    .pipe(sourcemaps.init())
+    .pipe(stylus({ compress: true }))
+    .pipe(rev())
+    .pipe(sourcemaps.write('.', {
+      sourceMappingURL: function(file) {
+        return file.relative + '.map';
+      }
+    }))
+    .pipe(gulp.dest(conf.dirs.dist + '/app/styles'));
 });
 
 gulp.task('build:copydep', function() {
   return gulp.src(libs({ dest: 'lib' }), { base: 'bower_components' })
     .pipe(debug({title: 'libs: ', minimal: false}))
-    .pipe(gulp.dest('dist/app/lib'));
+    .pipe(gulp.dest(conf.dirs.dist + '/app/lib'));
 });
 
 // identifies bower library dependencies, injects CDN links w/ fallback test
