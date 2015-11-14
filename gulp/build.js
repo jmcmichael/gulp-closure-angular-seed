@@ -20,6 +20,7 @@ var gulp = require('gulp'),
   concat = require('gulp-concat'),
   compiler = require('gulp-plovrator'),
   stylus = require('gulp-stylus'),
+  insert = require('gulp-insert'),
   templateCache = require('gulp-angular-templatecache'),
   sourcemaps = require('gulp-sourcemaps');
 
@@ -71,7 +72,7 @@ var closureConf = {
 
 
 gulp.task('build', function(cb) {
-  sequence('clean:dist', ['build:scripts', 'build:templates', 'build:styles', 'build:copydep'], 'build:inject', cb);
+  sequence('clean:dist', 'build:templates', ['build:scripts', 'build:styles', 'build:copydep'], 'build:inject', cb);
 });
 
 gulp.task('build:debug', function(cb) {
@@ -84,7 +85,9 @@ gulp.task('build:scripts', function() {
   var scripts = conf.goog.concat(conf.scripts);
 
   return gulp.src(scripts)
+    .pipe(debug({title:'build:scripts - pre compile'}))
     .pipe(compiler(closureConf.default))
+    .pipe(debug({title:'build:scripts- post compile'}))
     .pipe(gulp.dest(conf.dirs.dist + '/app/js'));
 });
 
@@ -93,7 +96,9 @@ gulp.task('build:debug:scripts', function() {
   var scripts = conf.goog.concat(conf.scripts);
 
   return gulp.src(scripts)
+    .pipe(debug({title:'build:debug:scripts - pre compile'}))
     .pipe(compiler(closureConf.debug))
+    .pipe(debug({title:'build:debug:scripts - post compile'}))
     .pipe(gulp.dest(conf.dirs.dist + '/app/js'));
 });
 
@@ -123,8 +128,8 @@ gulp.task('build:templates', function() {
   return gulp.src(conf.templates)
     .pipe(debug({ title: 'templates: '}))
     .pipe(templateCache('templates.js', { standalone: true }))
-    .pipe(rev())
-    .pipe(gulp.dest(conf.dirs.dist + '/app/js'));
+    .pipe(insert.prepend('"use strict"; goog.provide("my.templates"); my.templates = '))
+    .pipe(gulp.dest(conf.dirs.temp + '/templateCache'));
 });
 
 // identifies bower library dependencies, injects CDN links w/ fallback test

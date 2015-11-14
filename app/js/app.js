@@ -7,13 +7,14 @@ goog.require('my.third.module');
 goog.require('my.version.Directive.factory');
 goog.require('my.version.Service');
 goog.require('my.check.Filter.factory');
+goog.require('my.templates');
 
 /**
  * Main app.
  */
 angular.module('app', [
   'ui.router',
-  'templates',
+  my.templates.name,
   my.first.module.name,
   my.second.module.name,
   // my.third.module includes child states `third.one` and `third.two`

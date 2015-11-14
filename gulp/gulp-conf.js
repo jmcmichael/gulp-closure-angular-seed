@@ -6,6 +6,7 @@ var conf = {
     'app/js/app.js',
     'app/states/**/*.js',
     'app/components/**/*.js',
+    '.tmp/templateCache/*.js',
     '!**/*.pageobject.js',
     '!**/*.scenario.js',
     '!**/*.spec.js'
