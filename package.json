@@ -47,6 +47,7 @@
     "karma-firefox-launcher": "latest",
     "karma-jasmine": "latest",
     "karma-spec-reporter": "latest",
+    "lodash": "^3.10.1",
     "main-bower-files": "^2.9.0",
     "path": "latest",
     "protractor": "latest",

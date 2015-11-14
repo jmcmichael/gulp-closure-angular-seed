@@ -6,6 +6,7 @@
 
 'use strict';
 var gulp = require('gulp'),
+  _ = require('lodash'),
   conf = require('./gulp-conf.js').conf,
   root = require('app-root-path'),
   rev = require('gulp-rev'),
@@ -22,41 +23,48 @@ var gulp = require('gulp'),
   templateCache = require('gulp-angular-templatecache'),
   sourcemaps = require('gulp-sourcemaps');
 
-
-var closureConfig = {
-  compilerPath: 'node_modules/closurecompiler/compiler/compiler.jar',
-  fileName: 'app.min.js',
-  continueWithWarnings: true,
-  compilerFlags: {
-    closure_entry_point: 'app',
-    debug: false,
-    summary_detail_level: 3,
-    angular_pass: true,
-    compilation_level: 'ADVANCED_OPTIMIZATIONS',
-    externs: glob(conf.externs),
-    only_closure_dependencies: true,
-    export_local_property_definitions: true,
-    generate_exports: true,
-    // .call is super important, otherwise Closure Library will not work in strict mode.
-    output_wrapper: '(function(){%output%}).call(window);',
-    warning_level: 'DEFAULT'
-  }
-};
-
-var scriptsConfig = {
+var closureConf = {
   default: {
+    compilerPath: 'node_modules/closurecompiler/compiler/compiler.jar',
+    fileName: 'app.min.js',
     createSourceMap: false,
     fingerprint: true,
-    continueWithWarnings: false,
-    compilerFlags: {}
+    continueWithWarnings: true,
+    compilerFlags: {
+      closure_entry_point: 'app',
+      debug: false,
+      summary_detail_level: 3,
+      angular_pass: true,
+      compilation_level: 'ADVANCED_OPTIMIZATIONS',
+      externs: glob(conf.externs),
+      only_closure_dependencies: true,
+      export_local_property_definitions: true,
+      generate_exports: true,
+      // .call is super important, otherwise Closure Library will not work in strict mode.
+      output_wrapper: '(function(){%output%}).call(window);',
+      warning_level: 'DEFAULT'
+    }
   },
   debug: {
+    compilerPath: 'node_modules/closurecompiler/compiler/compiler.jar',
+    fileName: 'app.min.js',
     createSourceMap: true,
     fingerprint: true,
     continueWithWarnings: true,
     compilerFlags: {
+      closure_entry_point: 'app',
       debug: true,
-      formatting: 'PRETTY_PRINT'
+      summary_detail_level: 3,
+      angular_pass: true,
+      formatting: 'PRETTY_PRINT',
+      compilation_level: 'ADVANCED_OPTIMIZATIONS',
+      externs: glob(conf.externs),
+      only_closure_dependencies: true,
+      export_local_property_definitions: true,
+      generate_exports: true,
+      // .call is super important, otherwise Closure Library will not work in strict mode.
+      output_wrapper: '(function(){%output%}).call(window);',
+      warning_level: 'DEFAULT'
     }
   }
 };
@@ -66,15 +74,26 @@ gulp.task('build', function(cb) {
   sequence('clean:dist', ['build:scripts', 'build:templates', 'build:styles', 'build:copydep'], 'build:inject', cb);
 });
 
+gulp.task('build:debug', function(cb) {
+  sequence('clean:dist', ['build:debug:scripts', 'build:templates', 'build:styles', 'build:copydep'], 'build:inject', cb);
+});
+
 // runs scripts through Closure compiler, produces fingerprinted, minified ES5 js
 // and sourcemap, injects links into index.html and copies the results to /dist
 gulp.task('build:scripts', function() {
   var scripts = conf.goog.concat(conf.scripts);
 
   return gulp.src(scripts)
-    //.pipe(debug({title: 'pre-compile:'}))
-    .pipe(compiler(closureConfig))
-    //.pipe(debug({title: 'post-compile/rev:'}))
+    .pipe(compiler(closureConf.default))
+    .pipe(gulp.dest(conf.dirs.dist + '/app/js'));
+});
+
+// debug script compile, toggles closure's debug mode and pretty-print
+gulp.task('build:debug:scripts', function() {
+  var scripts = conf.goog.concat(conf.scripts);
+
+  return gulp.src(scripts)
+    .pipe(compiler(closureConf.debug))
     .pipe(gulp.dest(conf.dirs.dist + '/app/js'));
 });
 
@@ -96,7 +115,6 @@ gulp.task('build:styles', function() {
 // copies vendor scripts and styles to dist/lib
 gulp.task('build:copydep', function() {
   return gulp.src(libs({ dest: 'lib' }), { base: 'bower_components' })
-    //.pipe(debug({title: 'libs: ', minimal: false}))
     .pipe(gulp.dest(conf.dirs.dist + '/app/lib'));
 });
 
