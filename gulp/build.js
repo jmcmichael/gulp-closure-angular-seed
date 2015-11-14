@@ -23,6 +23,45 @@ var gulp = require('gulp'),
   sourcemaps = require('gulp-sourcemaps');
 
 
+var closureConfig = {
+  compilerPath: 'node_modules/closurecompiler/compiler/compiler.jar',
+  fileName: 'app.min.js',
+  continueWithWarnings: true,
+  compilerFlags: {
+    closure_entry_point: 'app',
+    debug: false,
+    summary_detail_level: 3,
+    angular_pass: true,
+    compilation_level: 'ADVANCED_OPTIMIZATIONS',
+    externs: glob(conf.externs),
+    only_closure_dependencies: true,
+    export_local_property_definitions: true,
+    generate_exports: true,
+    // .call is super important, otherwise Closure Library will not work in strict mode.
+    output_wrapper: '(function(){%output%}).call(window);',
+    warning_level: 'DEFAULT'
+  }
+};
+
+var scriptsConfig = {
+  default: {
+    createSourceMap: false,
+    fingerprint: true,
+    continueWithWarnings: false,
+    compilerFlags: {}
+  },
+  debug: {
+    createSourceMap: true,
+    fingerprint: true,
+    continueWithWarnings: true,
+    compilerFlags: {
+      debug: true,
+      formatting: 'PRETTY_PRINT'
+    }
+  }
+};
+
+
 gulp.task('build', function(cb) {
   sequence('clean:dist', ['build:scripts', 'build:templates', 'build:styles', 'build:copydep'], 'build:inject', cb);
 });
@@ -34,28 +73,7 @@ gulp.task('build:scripts', function() {
 
   return gulp.src(scripts)
     //.pipe(debug({title: 'pre-compile:'}))
-    .pipe(compiler({
-      compilerPath: 'node_modules/closurecompiler/compiler/compiler.jar',
-      fileName: 'app.min.js',
-      createSourceMap: true,
-      fingerprint: true,
-      continueWithWarnings: true,
-      compilerFlags: {
-        closure_entry_point: 'app',
-        debug: false,
-        summary_detail_level: 3,
-        angular_pass: true,
-        //formatting: 'PRETTY_PRINT',
-        compilation_level: 'ADVANCED_OPTIMIZATIONS',
-        externs: glob(conf.externs),
-        only_closure_dependencies: true,
-        export_local_property_definitions: true,
-        generate_exports: true,
-        // .call is super important, otherwise Closure Library will not work in strict mode.
-        output_wrapper: '(function(){%output%}).call(window);',
-        warning_level: 'DEFAULT'
-      }
-    }))
+    .pipe(compiler(closureConfig))
     //.pipe(debug({title: 'post-compile/rev:'}))
     .pipe(gulp.dest(conf.dirs.dist + '/app/js'));
 });
