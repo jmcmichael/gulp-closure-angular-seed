@@ -40,7 +40,7 @@ my.second.module.configuration = function($stateProvider) {
 
   $stateProvider.state('second', {
     url: '/second',
-    templateUrl: 'states/second/second.html',
+    templateUrl: 'states/second/second.tpl.html',
     controller: 'SecondCtrl as second'
   });
 

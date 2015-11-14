@@ -40,7 +40,7 @@ my.third.two.module.configuration = function($stateProvider) {
 
   $stateProvider.state('third.two', {
     url: '/two',
-    templateUrl: 'states/third/two/two.html',
+    templateUrl: 'states/third/two/two.tpl.html',
     controller: 'ThirdTwoCtrl as thirdTwo'
   });
 

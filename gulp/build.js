@@ -19,11 +19,12 @@ var gulp = require('gulp'),
   concat = require('gulp-concat'),
   compiler = require('gulp-plovrator'),
   stylus = require('gulp-stylus'),
+  templateCache = require('gulp-angular-templatecache'),
   sourcemaps = require('gulp-sourcemaps');
 
 
 gulp.task('build', function(cb) {
-  sequence('clean:dist', ['build:scripts', 'build:styles', 'build:copydep'], 'build:inject', cb);
+  sequence('clean:dist', ['build:scripts', 'build:templates', 'build:styles', 'build:copydep'], 'build:inject', cb);
 });
 
 // runs scripts through Closure compiler, produces fingerprinted, minified ES5 js
@@ -32,7 +33,7 @@ gulp.task('build:scripts', function() {
   var scripts = conf.goog.concat(conf.scripts);
 
   return gulp.src(scripts)
-    .pipe(debug({title: 'pre-compile:'}))
+    //.pipe(debug({title: 'pre-compile:'}))
     .pipe(compiler({
       compilerPath: 'node_modules/closurecompiler/compiler/compiler.jar',
       fileName: 'app.min.js',
@@ -55,11 +56,11 @@ gulp.task('build:scripts', function() {
         warning_level: 'DEFAULT'
       }
     }))
-    .pipe(debug({title: 'post-compile/rev:'}))
+    //.pipe(debug({title: 'post-compile/rev:'}))
     .pipe(gulp.dest(conf.dirs.dist + '/app/js'));
 });
 
-// concatenates, compiles, fingerprints, and injects link into index.html
+// concatenates and compiles .styl files with sourcemap
 gulp.task('build:styles', function() {
   return gulp.src(conf.styles)
     .pipe(concat('app.css'))
@@ -74,10 +75,20 @@ gulp.task('build:styles', function() {
     .pipe(gulp.dest(conf.dirs.dist + '/app/styles'));
 });
 
+// copies vendor scripts and styles to dist/lib
 gulp.task('build:copydep', function() {
   return gulp.src(libs({ dest: 'lib' }), { base: 'bower_components' })
-    .pipe(debug({title: 'libs: ', minimal: false}))
+    //.pipe(debug({title: 'libs: ', minimal: false}))
     .pipe(gulp.dest(conf.dirs.dist + '/app/lib'));
+});
+
+//collects all angular templates (*.tpl.html), creates templateCache module script for later injection
+gulp.task('build:templates', function() {
+  return gulp.src(conf.templates)
+    .pipe(debug({ title: 'templates: '}))
+    .pipe(templateCache('templates.js', { standalone: true }))
+    .pipe(rev())
+    .pipe(gulp.dest(conf.dirs.dist + '/app/js'));
 });
 
 // identifies bower library dependencies, injects CDN links w/ fallback test
@@ -111,11 +122,11 @@ gulp.task('build:inject', ['build:copydep'], function(cb) {
           file: '**/*/angular-ui-router.js',
           package: 'angular-ui-router',
           test: 'window.angular.module("ui.router")',
-          cdn: '//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/${ version }/angular-ui-router.min.js/'
+          cdn: '//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/${ version }/angular-ui-router.min.js'
         }
       ]
     }))
-    .pipe(inject(gulp.src([conf.dirs.dist + '/app/js/**/*.js',conf.dirs.dist + '/app/css/**/*.css' ],{ read: false, cwd: 'dist/app/' }),
+    .pipe(inject(gulp.src([conf.dirs.dist + '/app/js/**/*.js',conf.dirs.dist + '/app/styles/**/*.css' ],{ read: false, cwd: 'dist/app/' }),
       { relative: false, addRootSlash: false }
     ))
     .pipe(gulp.dest(conf.dirs.dist + '/app'));

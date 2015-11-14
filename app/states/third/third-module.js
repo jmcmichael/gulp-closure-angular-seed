@@ -46,7 +46,7 @@ my.third.module.configuration = function($stateProvider) {
 
   $stateProvider.state('third', {
     url: '/third',
-    templateUrl: 'states/third/third.html',
+    templateUrl: 'states/third/third.tpl.html',
     controller: 'ThirdCtrl as third'
   });
 

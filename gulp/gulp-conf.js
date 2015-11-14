@@ -20,7 +20,7 @@ var conf = {
   styles: [
     'app/**/*.styl'
   ],
-  partials: [
+  templates: [
     'app/**/*.tpl.html'
   ],
   dirs: {

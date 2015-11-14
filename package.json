@@ -31,6 +31,7 @@
     "grunt-shell": "^1.1.1",
     "gulp": "^3.9.0",
     "gulp-angular-protractor": "latest",
+    "gulp-angular-templatecache": "^1.8.0",
     "gulp-cdnizer": "^1.1.6",
     "gulp-concat": "^2.6.0",
     "gulp-debug": "^2.1.2",

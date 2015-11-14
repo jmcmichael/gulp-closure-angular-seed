@@ -35,7 +35,7 @@ my.first.module.configuration = function($stateProvider) {
 
   $stateProvider.state('first', {
     url: '/first',
-    templateUrl: 'states/first/first.html',
+    templateUrl: 'states/first/first.tpl.html',
     controller: 'FirstCtrl as first'
   });
 

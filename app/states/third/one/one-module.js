@@ -40,7 +40,7 @@ my.third.one.module.configuration = function($stateProvider) {
 
   $stateProvider.state('third.one', {
     url: '/one',
-    templateUrl: 'states/third/one/one.html',
+    templateUrl: 'states/third/one/one.tpl.html',
     controller: 'ThirdOneCtrl as thirdOne'
   });
 

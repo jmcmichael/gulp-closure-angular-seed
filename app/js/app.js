@@ -13,6 +13,7 @@ goog.require('my.check.Filter.factory');
  */
 angular.module('app', [
   'ui.router',
+  'templates',
   my.first.module.name,
   my.second.module.name,
   // my.third.module includes child states `third.one` and `third.two`
