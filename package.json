@@ -31,7 +31,9 @@
     "grunt-shell": "^1.1.1",
     "gulp": "^3.9.0",
     "gulp-angular-protractor": "latest",
+    "gulp-cdnizer": "^1.1.6",
     "gulp-debug": "^2.1.2",
+    "gulp-inject": "^3.0.0",
     "gulp-rev": "^6.0.1",
     "gulp-sass": "^2.1.0",
     "jasmine-spec-reporter": "^0.6.0",
@@ -45,6 +47,7 @@
     "path": "latest",
     "protractor": "latest",
     "require-dir": "^0.3.0",
+    "run-sequence": "^1.1.4",
     "temp": "^0.8.3",
     "vinyl-paths": "^2.0.0",
     "wiredep": "^2.2.2"

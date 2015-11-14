@@ -1,17 +1,27 @@
 /**
-*  Build tasks take compiled assets, prepared by various compile tasks, and
-*  do any final preparatory/packaging work necessary for production, copying the
-*  final results to /dist
-*/
+ *  Build tasks take compiled assets, prepared by various compile tasks, and
+ *  do any final preparatory/packaging work necessary for production, copying the
+ *  final results to /dist
+ */
 
 'use strict';
 var gulp = require('gulp'),
   conf = require('./gulp-conf.js').conf,
+  root = require('app-root-path'),
   glob = require('globby').sync,
   debug = require('gulp-debug'),
+  libs = require('main-bower-files'),
+  sequence = require('run-sequence'),
   wiredep = require('wiredep').stream,
+  inject = require('gulp-inject'),
+  cdnizer = require('gulp-cdnizer'),
   rev = require('gulp-rev'),
-  compiler = require('gulp-closure-compiler');
+  compiler = require('gulp-plovrator');
+
+
+gulp.task('build', function(cb) {
+  sequence('clean:dist', ['build:scripts', 'build:styles', 'build:copydep'], 'build:inject', cb);
+});
 
 // runs scripts through Closure compiler, produces fingerprinted, minified ES5 js
 // and sourcemap, injects links into index.html and copies the results to /dist
@@ -39,9 +49,7 @@ gulp.task('build:scripts', function() {
         generate_exports: true,
         // .call is super important, otherwise Closure Library will not work in strict mode.
         output_wrapper: '(function(){%output%}).call(window);',
-        warning_level: 'DEFAULT',
-        //create_source_map: conf.dirs.dist + '/app/js/%outname%.map'
-        //create_source_map: conf.dirs.temp + '/app/js/%outname%.map'
+        warning_level: 'DEFAULT'
       }
     }))
     .pipe(debug({title: 'post-compile/rev:'}))
@@ -53,10 +61,49 @@ gulp.task('build:styles', function(cb) {
   cb();
 });
 
-// identifies bower library dependencies, injects links into index.html
-// then replaces relevant library links with references to CDN versions
-gulp.task('build:wiredep', function(cb) {
-  cb();
+gulp.task('build:copydep', function() {
+  return gulp.src(libs({ dest: 'lib' }), { base: 'bower_components' })
+    .pipe(debug({title: 'libs: ', minimal: false}))
+    .pipe(gulp.dest('dist/app/lib'));
 });
 
-gulp.task('build', ['build:styles', 'build:scripts', 'build:wiredep']);
+// identifies bower library dependencies, injects CDN links w/ fallback test
+gulp.task('build:inject', ['build:copydep'], function(cb) {
+  return gulp.src('app/index.html')
+    .pipe(wiredep({
+      directory: 'bower_components',
+      exclude: [],
+      ignorePath: '../bower_components/',
+      fileTypes: {
+        html: {
+          replace: {
+            js: '<script src="lib/{{filePath}}"></script>',
+            css: '<link rel="stylesheet" href="lib/{{filePath}}" />'
+          }
+        }
+      }
+    }))
+    .pipe(cdnizer({
+      allowRev: true,
+      allowMin: true,
+      relativeRoot: 'app/',
+      files: [
+        {
+          file: '**/*/angular.js',
+          package: 'angular',
+          test: 'window.angular',
+          cdn: '//ajax.googleapis.com/ajax/libs/angularjs/${ version }/angular.min.js'
+        },
+        {
+          file: '**/*/angular-ui-router.js',
+          package: 'angular-ui-router',
+          test: 'window.angular.module("ui.router")',
+          cdn: '//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/${ version }/angular-ui-router.min.js/'
+        }
+      ]
+    }))
+    .pipe(inject(gulp.src([conf.dirs.dist + '/app/js/**/*.js',conf.dirs.dist + '/app/css/**/*.css' ],{ read: false, cwd: 'dist/app/' }),
+      { relative: false, addRootSlash: false }
+    ))
+    .pipe(gulp.dest(conf.dirs.dist + '/app'));
+});

@@ -1,3 +1,4 @@
+'use strict';
 root = require('app-root-path');
 
 var conf = {

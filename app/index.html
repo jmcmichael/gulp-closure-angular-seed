@@ -6,12 +6,15 @@
     <title>AngularJS seed for Google Closure Compiler</title>
     <link rel="stylesheet" href="styles/app.css"/>
 
+    <!-- vendor styles, injected by wiredep -->
     <!-- bower:css -->
     <!-- endbower -->
 
+    <!-- app styles, injected by gulp-inject -->
+    <!-- inject:css -->
+    <!-- endinject -->
   </head>
   <body>
-
     <h4>
       AngularJS seed for Google Closure Compiler
     </h4>
@@ -24,10 +27,13 @@
 
     <div ui-view></div>
 
+    <!-- vendor scripts, injected by wiredep -->
     <!-- bower:js -->
     <!-- endbower -->
 
-    <script src="js/app.min.js"></script>
+    <!-- app scripts, injected by gulp-inject  -->
+    <!-- inject:js -->
+    <!-- endinject -->
 
   </body>
 </html>
