@@ -11,14 +11,14 @@ var gulp = require('gulp'),
   debug = require('gulp-debug'),
   stylus = require('gulp-stylus'),
   wiredep = require('wiredep').stream,
-  inject = require('gulp-inject');
+  inject = require('gulp-inject'),
+  root = require('app-root-path');
 
 // prepare index.html file
 // - inject bower scripts, styles
 // - inject app scripts, styles
 // - identifies bower library dependencies, injects CDN links w/ fallback test
-gulp.task('dev:inject', ['dev:styles'], function(cb) {
-  var scripts = conf.goog.concat(conf.scripts);
+gulp.task('dev:inject', ['dev:styles', 'dev:prep'], function(cb) {
   return gulp.src('app/index.html')
     .pipe(wiredep({
       directory: 'bower_components',
@@ -33,10 +33,18 @@ gulp.task('dev:inject', ['dev:styles'], function(cb) {
         }
       }
     }))
-    .pipe(inject(gulp.src(scripts.concat(['.tmp/**/*.css'])),
-      { relative: false, addRootSlash: false }
-    ))
+    .pipe(inject(gulp.src(conf.scripts.dev.concat(['.tmp/**/*.css']),{read: false }),
+      {
+        ignorePath: ['/app/', '/.tmp/'],
+        addRootSlash: false
+      })
+    )
     .pipe(gulp.dest(conf.dirs.temp));
+});
+
+// prep tasks for dev - now it just copies goog deps for easy access in .tmp
+gulp.task('dev:prep', function(cb) {
+  return gulp.src(conf.goog).pipe(gulp.dest(conf.dirs.temp + '/goog'));
 });
 
 // compile styl to css, copy to .tmp

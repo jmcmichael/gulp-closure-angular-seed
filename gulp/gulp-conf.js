@@ -14,8 +14,7 @@ var conf = {
       '!**/*.spec.js'
     ],
     dev: [
-      'node_modules/google-closure-library/**/base.js',
-      'node_modules/google-closure-library/**/deps.js',
+      '.tmp/goog/**/*.js',
       'app/js/**/*.js',
       'app/states/**/*.js',
       'app/components/**/*.js',
