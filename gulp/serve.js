@@ -14,7 +14,7 @@ gulp.task('serve', function() {
   });
 });
 
-gulp.task('serve:dist', function() {
+gulp.task('serve:dist', ['build'], function() {
   server.init({
     server: {
       baseDir: "dist/app"

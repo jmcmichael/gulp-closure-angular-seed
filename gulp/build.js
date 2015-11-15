@@ -82,7 +82,7 @@ gulp.task('build:debug', function(cb) {
 // runs scripts through Closure compiler, produces fingerprinted, minified ES5 js
 // and sourcemap, injects links into index.html and copies the results to /dist
 gulp.task('build:scripts', function() {
-  var scripts = conf.goog.concat(conf.scripts);
+  var scripts = conf.goog.concat(conf.scripts.build);
 
   return gulp.src(scripts)
     .pipe(debug({title:'build:scripts - pre compile'}))
@@ -93,7 +93,7 @@ gulp.task('build:scripts', function() {
 
 // debug script compile, toggles closure's debug mode and pretty-print
 gulp.task('build:debug:scripts', function() {
-  var scripts = conf.goog.concat(conf.scripts);
+  var scripts = conf.goog.concat(conf.scripts.build);
 
   return gulp.src(scripts)
     .pipe(debug({title:'build:debug:scripts - pre compile'}))
@@ -128,7 +128,7 @@ gulp.task('build:templates', function() {
   return gulp.src(conf.templates)
     .pipe(debug({ title: 'templates: '}))
     .pipe(templateCache('templates.js', { standalone: true }))
-    .pipe(insert.prepend('"use strict"; goog.provide("my.templates"); my.templates = '))
+    .pipe(insert.prepend('"use strict"; goog.provide("my.templates"); my.templates = ')) // prepend goog.provide
     .pipe(gulp.dest(conf.dirs.temp + '/templateCache'));
 });
 
