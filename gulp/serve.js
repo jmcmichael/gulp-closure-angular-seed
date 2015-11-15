@@ -6,10 +6,10 @@ var gulp = require('gulp'),
   debug = require('gulp-debug'),
   server = require('browser-sync');
 
-gulp.task('serve', function() {
+gulp.task('serve', ['dev:inject'], function() {
   server.init({
     server: {
-      baseDir: "app"
+      baseDir: ['app', '.tmp', 'bower_components']
     }
   });
 });
