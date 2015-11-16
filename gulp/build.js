@@ -21,6 +21,7 @@ var gulp = require('gulp'),
   compiler = require('gulp-plovrator'),
   stylus = require('gulp-stylus'),
   insert = require('gulp-insert'),
+  rename = require('gulp-rename'),
   templateCache = require('gulp-angular-templatecache'),
   sourcemaps = require('gulp-sourcemaps');
 

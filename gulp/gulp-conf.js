@@ -4,7 +4,7 @@ root = require('app-root-path');
 var conf = {
   scripts: {
     build: [
-    'app/js/**/*.js',
+      'app/js/**/*.js',
       '!app/js/templates.js',
       'app/states/**/*.js',
       'app/components/**/*.js',
@@ -14,7 +14,6 @@ var conf = {
       '!**/*.spec.js'
     ],
     dev: [
-      '.tmp/goog/**/*.js',
       'app/js/**/*.js',
       'app/states/**/*.js',
       'app/components/**/*.js',
@@ -38,7 +37,8 @@ var conf = {
   ],
   dirs: {
     temp: root + '/.tmp',
-    dist: root + '/dist'
+    dist: root + '/dist',
+    app: root + '/app'
   },
   index: root + '/app/index.html'
 };
