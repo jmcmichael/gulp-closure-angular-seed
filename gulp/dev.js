@@ -27,9 +27,11 @@ var gulp = require('gulp'),
 // - inject app scripts, styles
 // - identifies bower library dependencies, injects CDN links w/ fallback test
 gulp.task('dev:inject', ['dev:styles', 'dev:prep'], function(cb) {
-  var googBase = gulp.src([conf.dirs.app + '/goog/base.js', conf.dirs.app + '/goog/deps.js'], {base: 'goog/'});
+  var googBase = gulp.src([conf.dirs.app + '/goog/base.js'], {base: 'goog/'});
   var appDeps = gulp.src([conf.dirs.app + '/app-deps.js']);
-  var appFiles = gulp.src([conf.dirs.app + '/js/**/app.js']);
+  //var appFiles = gulp.src(conf.scripts.dev, { read: true })
+  //  .pipe(filesort());
+  var appFiles = gulp.src([conf.dirs.app + '/js/app.js']);
 
   var allDeps = es.merge(googBase, appDeps, appFiles)
     .pipe(order([
@@ -38,7 +40,6 @@ gulp.task('dev:inject', ['dev:styles', 'dev:prep'], function(cb) {
       '**/*/app-deps.js',
       '**/*/app.js'
     ]));
-
 
   return gulp.src(conf.dirs.app + '/index.html')
     .pipe(wiredep({
