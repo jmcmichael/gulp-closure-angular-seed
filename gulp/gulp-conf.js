@@ -9,10 +9,10 @@ var conf = {
       'app/components/**/*.js',
       '.tmp/templateCache/*.js',
 
-      // no template
+      // no templates
       '!app/js/templates.js',
 
-      // no goog lib
+      // no goog libs
       '!app/goog/**/*.js',
 
       // no tests
@@ -35,7 +35,7 @@ var conf = {
     'app/goog/deps.js'
   ],
   externs: [
-    'closure/externs/*.js'
+    'app/externs/*.js'
   ],
   styles: [
     'app/**/*.styl'

@@ -27,11 +27,10 @@ var gulp = require('gulp'),
 // - inject app scripts, styles
 // - identifies bower library dependencies, injects CDN links w/ fallback test
 gulp.task('dev:inject', ['dev:styles', 'dev:prep'], function(cb) {
-  var appFiles = gulp.src(conf.scripts.dev,{read: true })
-    .pipe(filesort());
+  var googBase = gulp.src([conf.dirs.app + '/goog/base.js', conf.dirs.app + '/goog/deps.js'], {base: 'goog/'});
+  var appDeps = gulp.src([conf.dirs.app + '/app-deps.js']);
+  var allDeps = es.merge(googBase, appDeps).pipe(order(['**/*/base.js', '**/*/deps.js', '**/*/app-deps.js']));
 
-  var googFiles = gulp.src(conf.dirs.app + '/js/goog/*.js')
-    .pipe(order(['base.js', 'deps.js', 'app-deps.js']));
 
   return gulp.src(conf.dirs.app + '/index.html')
     .pipe(wiredep({
@@ -47,7 +46,8 @@ gulp.task('dev:inject', ['dev:styles', 'dev:prep'], function(cb) {
         }
       }
     }))
-    .pipe(inject(es.merge(googFiles), { ignorePath: ['/app/', '/.tmp/'], addRootSlash: false }))
+
+    .pipe(inject(allDeps, { ignorePath:['app/'], addRootSlash: false }))
     .pipe(gulp.dest(conf.dirs.app));
 });
 
@@ -59,7 +59,13 @@ gulp.task('dev:prep', function(cb) {
 gulp.task('prep:goog', function(cb) {
   var dest = root + '/node_modules/google-closure-library/closure/goog',
     path = root + '/app/goog';
-  fs.symlink(dest, path, cb);
+  fs.symlink(dest, path, function(err) {
+    if(err && err.code === 'EEXIST') {
+      cb();
+    } else if (err) {
+      process.exit('goog symlink error: ' + err.code);
+    }
+  });
   // TODO: handle errors
 });
 
@@ -67,10 +73,10 @@ gulp.task('prep:app-deps', function(cb) {
   return gulp.src(conf.scripts.dev)
     .pipe(closureDeps({
       fileName: 'app-deps.js',
-      prefix: '../../',
+      prefix: './',
       baseDir: 'app/'
     }))
-    .pipe(gulp.dest(conf.dirs.app + '/js/goog'));
+    .pipe(gulp.dest(conf.dirs.app));
 });
 
 // compile styl to css, copy to .tmp
