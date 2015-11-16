@@ -29,7 +29,15 @@ var gulp = require('gulp'),
 gulp.task('dev:inject', ['dev:styles', 'dev:prep'], function(cb) {
   var googBase = gulp.src([conf.dirs.app + '/goog/base.js', conf.dirs.app + '/goog/deps.js'], {base: 'goog/'});
   var appDeps = gulp.src([conf.dirs.app + '/app-deps.js']);
-  var allDeps = es.merge(googBase, appDeps).pipe(order(['**/*/base.js', '**/*/deps.js', '**/*/app-deps.js']));
+  var appFiles = gulp.src([conf.dirs.app + '/js/**/app.js']);
+
+  var allDeps = es.merge(googBase, appDeps, appFiles)
+    .pipe(order([
+      '**/*/base.js',
+      '**/*/deps.js',
+      '**/*/app-deps.js',
+      '**/*/app.js'
+    ]));
 
 
   return gulp.src(conf.dirs.app + '/index.html')
@@ -73,7 +81,7 @@ gulp.task('prep:app-deps', function(cb) {
   return gulp.src(conf.scripts.dev)
     .pipe(closureDeps({
       fileName: 'app-deps.js',
-      prefix: './',
+      prefix: '../',
       baseDir: 'app/'
     }))
     .pipe(gulp.dest(conf.dirs.app));
