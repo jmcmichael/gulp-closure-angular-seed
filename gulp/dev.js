@@ -65,6 +65,7 @@ gulp.task('dev:prep', function(cb) {
   sequence('prep:goog', 'prep:app-deps', cb);
 });
 
+// creates a symlink to the closure goog library
 gulp.task('prep:goog', function(cb) {
   var dest = root + '/node_modules/google-closure-library/closure/goog',
     path = root + '/app/goog';
@@ -79,7 +80,10 @@ gulp.task('prep:goog', function(cb) {
 });
 
 gulp.task('prep:app-deps', function(cb) {
-  return gulp.src(conf.scripts.dev)
+  var googBase = gulp.src([conf.dirs.app + '/goog/base.js'], {base: 'goog/'});
+  var devFiles = gulp.src(conf.scripts.dev);
+
+  return es.merge(googBase, devFiles)
     .pipe(closureDeps({
       fileName: 'app-deps.js',
       prefix: '../',

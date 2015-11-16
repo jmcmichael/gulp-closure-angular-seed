@@ -3,6 +3,7 @@
 goog.addDependency('../components/directives/version-directive.js', ['my.version.Directive.factory'], [], false);
 goog.addDependency('../components/filters/check-filter.js', ['my.check.Filter.factory'], [], false);
 goog.addDependency('../components/services/version-service.js', ['my.version.Service'], [], false);
+goog.addDependency('../goog/base.js', ['goog'], [], false);
 goog.addDependency('../js/app.js', ['app'], ['my.check.Filter.factory', 'my.first.module', 'my.second.module', 'my.templates', 'my.third.module', 'my.version.Directive.factory', 'my.version.Service'], false);
 goog.addDependency('../js/templates.js', ['my.templates'], [], false);
 goog.addDependency('../states/first/first-controller.js', ['my.first.Ctrl'], [], false);

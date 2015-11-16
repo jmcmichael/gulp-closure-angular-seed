@@ -1,5 +1,6 @@
 'use strict';
 goog.provide('app');
+
 goog.require('my.first.module');
 goog.require('my.second.module');
 goog.require('my.third.module');
