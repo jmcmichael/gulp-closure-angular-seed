@@ -7,7 +7,9 @@
 
 var gulp = require('gulp'),
   conf = require('./gulp-conf.js').conf,
+  fs = require('fs'),
   glob = require('globby').sync,
+  symlink = require('gulp-symlink'),
   sequence = require('run-sequence'),
   debug = require('gulp-debug'),
   stylus = require('gulp-stylus'),
@@ -25,10 +27,10 @@ var gulp = require('gulp'),
 // - inject app scripts, styles
 // - identifies bower library dependencies, injects CDN links w/ fallback test
 gulp.task('dev:inject', ['dev:styles', 'dev:prep'], function(cb) {
-  var ngFiles = gulp.src(conf.scripts.dev,{read: true })
+  var appFiles = gulp.src(conf.scripts.dev,{read: true })
     .pipe(filesort());
 
-  var googFiles = gulp.src(conf.dirs.temp + '/goog/*.js')
+  var googFiles = gulp.src(conf.dirs.app + '/js/goog/*.js')
     .pipe(order(['base.js', 'deps.js', 'app-deps.js']));
 
   return gulp.src(conf.dirs.app + '/index.html')
@@ -45,7 +47,7 @@ gulp.task('dev:inject', ['dev:styles', 'dev:prep'], function(cb) {
         }
       }
     }))
-    .pipe(inject(es.merge(googFiles, ngFiles), { ignorePath: ['/app/', '/.tmp/'], addRootSlash: false }))
+    .pipe(inject(es.merge(googFiles), { ignorePath: ['/app/', '/.tmp/'], addRootSlash: false }))
     .pipe(gulp.dest(conf.dirs.app));
 });
 
@@ -55,17 +57,20 @@ gulp.task('dev:prep', function(cb) {
 });
 
 gulp.task('prep:goog', function(cb) {
-  return gulp.src(conf.goog).pipe(gulp.dest(conf.dirs.temp + '/goog'));
+  var dest = root + '/node_modules/google-closure-library/closure/goog',
+    path = root + '/app/goog';
+  fs.symlink(dest, path, cb);
+  // TODO: handle errors
 });
 
 gulp.task('prep:app-deps', function(cb) {
   return gulp.src(conf.scripts.dev)
     .pipe(closureDeps({
       fileName: 'app-deps.js',
-      prefix: '',
+      prefix: '../../',
       baseDir: 'app/'
     }))
-    .pipe(gulp.dest(conf.dirs.temp + '/goog/'));
+    .pipe(gulp.dest(conf.dirs.app + '/js/goog'));
 });
 
 // compile styl to css, copy to .tmp
@@ -73,4 +78,8 @@ gulp.task('dev:styles', function(cb) {
   return gulp.src(conf.styles)
     .pipe(stylus({ compress: false }))
     .pipe(gulp.dest(conf.dirs.temp));
+});
+
+gulp.task('dev:calcdeps', function(cb) {
+
 });

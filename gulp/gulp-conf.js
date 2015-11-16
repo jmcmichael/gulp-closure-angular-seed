@@ -5,10 +5,17 @@ var conf = {
   scripts: {
     build: [
       'app/js/**/*.js',
-      '!app/js/templates.js',
       'app/states/**/*.js',
       'app/components/**/*.js',
       '.tmp/templateCache/*.js',
+
+      // no template
+      '!app/js/templates.js',
+
+      // no goog lib
+      '!app/goog/**/*.js',
+
+      // no tests
       '!**/*.pageobject.js',
       '!**/*.scenario.js',
       '!**/*.spec.js'
@@ -17,14 +24,15 @@ var conf = {
       'app/js/**/*.js',
       'app/states/**/*.js',
       'app/components/**/*.js',
+      '!app/goog/**/*.js',
       '!**/*.pageobject.js',
       '!**/*.scenario.js',
       '!**/*.spec.js'
     ]
   },
   goog: [
-    'node_modules/google-closure-library/closure/goog/base.js',
-    'node_modules/google-closure-library/closure/goog/deps.js'
+    'app/goog/base.js',
+    'app/goog/deps.js'
   ],
   externs: [
     'closure/externs/*.js'

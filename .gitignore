@@ -4,4 +4,5 @@ node_modules/
 bower_components/
 .tmp/*
 dist/*
+app/goog
 compiler.jar
