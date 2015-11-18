@@ -35,6 +35,7 @@ gulp.task('dev:inject', ['dev:styles', 'dev:prep'], function(cb) {
   //  .pipe(filesort());
   var appFiles = gulp.src([conf.dirs.app + '/js/app.js']);
 
+  //var allDeps = es.merge(googBase, appDeps)
   var allDeps = es.merge(googBase, appDeps, appFiles)
     .pipe(order([
       '**/*/base.js',

@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="app">
+<html>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,6 +42,9 @@
     <script src="app-deps.js"></script>
     <script src="js/app.js"></script>
     <!-- endinject -->
-
+    <script>
+      goog.require('app');
+      alert(my.templates.name);
+    </script>
   </body>
 </html>
