@@ -15,7 +15,7 @@ goog.provide('app');
  *
  * uses angular bootstrap to ensure goog deps are loaded before app module created
  */
-app = angular.element(document).ready(function() {
+angular.element(document).ready(function() {
   angular.module('app', [
       'ui.router',
       my.templates.name,
