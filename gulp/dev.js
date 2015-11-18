@@ -6,9 +6,11 @@
  **/
 
 var gulp = require('gulp'),
-  conf = require('./gulp-conf.js').conf,
+  conf = require('./_conf.js').conf,
   fs = require('fs'),
+  gutil = require('gulp-util'),
   glob = require('globby').sync,
+  exec = require('child_process').exec,
   symlink = require('gulp-symlink'),
   sequence = require('run-sequence'),
   debug = require('gulp-debug'),
@@ -16,8 +18,8 @@ var gulp = require('gulp'),
   wiredep = require('wiredep').stream,
   rename = require('gulp-rename'),
   inject = require('gulp-inject'),
+  temp = require('temp').track(),
   filesort = require('gulp-angular-filesort'),
-  closureDeps = require('gulp-closure-deps'),
   es = require('event-stream'),
   order = require('gulp-order'),
   root = require('app-root-path');
@@ -79,17 +81,38 @@ gulp.task('prep:goog', function(cb) {
   // TODO: handle errors
 });
 
-gulp.task('prep:app-deps', function(cb) {
+gulp.task('prep:app-deps', function(done) {
   var googBase = gulp.src([conf.dirs.app + '/goog/base.js'], {base: 'goog/'});
   var devFiles = gulp.src(conf.scripts.dev);
-
-  return es.merge(googBase, devFiles)
-    .pipe(closureDeps({
-      fileName: 'app-deps.js',
-      prefix: '../',
-      baseDir: 'app/'
-    }))
-    .pipe(gulp.dest(conf.dirs.app));
+  temp.mkdir('closure-compiler-temp', function(err, tmpPath){
+    if (err) {
+      done(err, 'error creating temp directory');
+    }
+    var depsPath = tmpPath + '/' + conf.depsWriter.fileName;
+    var command = conf.depsWriter.exec +
+      ' --root_with_prefix="' + conf.dirs.app + '/ ../"' +
+      ' --output_file="' + tmpPath + '/app-deps.js"';
+    log.info(command);
+    exec(command, function(error, stdout, stderr) {
+      if(error) {
+        console.error('stderr: '+ error);
+      } else {
+        console.log('stdout: '+ stdout);
+      }
+      gulp.src(depsPath)
+        .pipe(gulp.dest(conf.dirs.app));
+      done();
+      //var compiledFile = new gutil.File({
+      //  base: tmpPath,
+      //  contents: stdout,
+      //  cwd: tmpPath,
+      //  path: depsPath
+      //});
+      //console.log('stdout: ' + stdout);
+      //console.log('stderr: ' + stderr);
+      //done();
+    })
+  });
 });
 
 // compile styl to css, copy to .tmp

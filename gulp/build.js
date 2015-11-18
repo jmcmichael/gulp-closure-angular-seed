@@ -7,7 +7,7 @@
 'use strict';
 var gulp = require('gulp'),
   _ = require('lodash'),
-  conf = require('./gulp-conf.js').conf,
+  conf = require('./_conf.js').conf,
   root = require('app-root-path'),
   rev = require('gulp-rev'),
   glob = require('globby').sync,

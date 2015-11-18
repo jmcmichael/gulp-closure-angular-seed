@@ -48,7 +48,25 @@ var conf = {
     dist: root + '/dist',
     app: root + '/app'
   },
-  index: root + '/app/index.html'
+  index: root + '/app/index.html',
+  depsWriter: {
+    exec: root + '/node_modules/google-closure-library/closure/bin/build/depswriter.py',
+    fileName: 'app-deps.js',
+    roots: [
+      {
+        root: 'app',
+        prefix: 'app/'
+      },
+      {
+        root: 'states',
+        prefix: 'states/'
+      },
+      {
+        root: 'components',
+        prefix: 'components/'
+      }
+    ]
+  }
 };
 
 exports.conf = conf;
