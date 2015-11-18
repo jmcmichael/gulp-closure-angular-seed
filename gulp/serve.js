@@ -10,10 +10,11 @@ var gulp = require('gulp'),
 gulp.task('serve', ['dev:inject'], function() {
   server({
     notify: false,
-    directory: true,
+    directory: false,
     port: 9000,
     server: {
       baseDir: ['app', '.tmp'],
+      index: 'index.html',
       routes: {
         '/bower_components': './bower_components'
       }
@@ -35,7 +36,8 @@ gulp.task('serve', ['dev:inject'], function() {
 gulp.task('serve:dist', ['build'], function() {
   server.init({
     server: {
-      baseDir: "dist/app"
+      baseDir: "dist/app",
+      index: 'index.html'
     }
   });
 });

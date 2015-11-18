@@ -31,6 +31,7 @@ var conf = {
     ]
   },
   goog: [
+    'app/goog/*.js',
     'app/goog/base.js',
     'app/goog/deps.js'
   ],

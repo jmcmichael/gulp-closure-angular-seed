@@ -14,6 +14,7 @@ var gulp = require('gulp'),
   debug = require('gulp-debug'),
   libs = require('main-bower-files'),
   sequence = require('run-sequence'),
+  es = require('event-stream'),
   wiredep = require('wiredep').stream,
   inject = require('gulp-inject'),
   cdnizer = require('gulp-cdnizer'),
@@ -83,9 +84,10 @@ gulp.task('build:debug', function(cb) {
 // runs scripts through Closure compiler, produces fingerprinted, minified ES5 js
 // and sourcemap, injects links into index.html and copies the results to /dist
 gulp.task('build:scripts', function() {
-  var scripts = conf.goog.concat(conf.scripts.build);
+  var googSrc = gulp.src(conf.goog);
+  var appSrc = gulp.src(conf.scripts.build);
 
-  return gulp.src(scripts)
+  return es.merge(googSrc, appSrc)
     .pipe(debug({title:'build:scripts - pre compile'}))
     .pipe(compiler(closureConf.default))
     .pipe(debug({title:'build:scripts- post compile'}))

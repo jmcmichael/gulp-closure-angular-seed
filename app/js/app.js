@@ -42,9 +42,6 @@ angular.element(document).ready(function() {
 
   }
 
-  /**
-   * @ngInject
-   */
   angular.bootstrap(document, ['app']);
 });
 
