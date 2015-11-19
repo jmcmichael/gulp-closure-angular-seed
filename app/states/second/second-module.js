@@ -1,15 +1,16 @@
 'use strict';
 
+
 /**
  * Create namespace.
  */
 goog.provide('my.second.module');
 
+
 /**
  * Require controller.
  */
 goog.require('my.second.Ctrl');
-
 
 
 /**
@@ -20,7 +21,6 @@ goog.require('my.second.Ctrl');
 my.second.module = angular.module('second', [
   'ui.router'
 ]);
-
 
 
 /**
@@ -52,5 +52,5 @@ my.second.module.configuration = function($stateProvider) {
  * Init second module.
  */
 my.second.module
-.config(my.second.module.configuration)
-.controller('SecondCtrl', my.second.Ctrl);
+  .config(my.second.module.configuration)
+  .controller('SecondCtrl', my.second.Ctrl);

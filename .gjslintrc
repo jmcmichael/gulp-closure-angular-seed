@@ -1,0 +1,4 @@
+--nostrict
+--jsdoc
+--custom_jsdoc_tags=example,nocollapse
+--max_line_length=100

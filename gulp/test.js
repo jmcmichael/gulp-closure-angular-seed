@@ -1,10 +1,12 @@
+'use strict';
+
 var gulp = require('gulp'),
   path = require('path'),
   unitServer = require('karma').Server,
   e2eServer = require('gulp-angular-protractor'),
   root = require('app-root-path');
 
-gulp.task('test:unit', function (done) {
+gulp.task('test:unit', function(done) {
   new unitServer({
     configFile: root + '/test/unit/karma.conf.js',
     singleRun: true

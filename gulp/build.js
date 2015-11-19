@@ -108,6 +108,7 @@ gulp.task('build:debug:scripts', function() {
 // concatenates and compiles .styl files with sourcemap
 gulp.task('build:styles', function() {
   return gulp.src(conf.styles)
+    .pipe(debug({title:'pre-styl: '}))
     .pipe(concat('app.css'))
     .pipe(sourcemaps.init())
     .pipe(stylus({ compress: true }))

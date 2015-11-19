@@ -1,6 +1,6 @@
 'use strict';
 
-describe('SecondCtrl', function(){
+describe('SecondCtrl', function() {
 
   var window;
   var ctrl;
