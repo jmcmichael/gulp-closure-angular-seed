@@ -31,12 +31,13 @@ var gulp = require('gulp'),
 gulp.task('dev:inject', ['dev:styles', 'dev:prep'], function(cb) {
   var googBase = gulp.src([conf.dirs.app + '/goog/base.js'], {base: 'goog/'});
   var appDeps = gulp.src([conf.dirs.app + '/app-deps.js']);
+  var cssDeps = gulp.src([conf.dirs.temp + '/**/*.css']).pipe(debug({title:'cssDeps:'}));
   //var appFiles = gulp.src(conf.scripts.dev, { read: true })
   //  .pipe(filesort());
   var appFiles = gulp.src([conf.dirs.app + '/js/app.js']);
 
   //var allDeps = es.merge(googBase, appDeps)
-  var allDeps = es.merge(googBase, appDeps, appFiles)
+  var allDeps = es.merge(googBase, appDeps, appFiles, cssDeps)
     .pipe(order([
       '**/*/base.js',
       '**/*/deps.js',
@@ -58,8 +59,7 @@ gulp.task('dev:inject', ['dev:styles', 'dev:prep'], function(cb) {
         }
       }
     }))
-
-    .pipe(inject(allDeps, { ignorePath:['app/'], addRootSlash: false }))
+    .pipe(inject(allDeps, { ignorePath:['app/', '.tmp/'], addRootSlash: false }))
     .pipe(gulp.dest(conf.dirs.app));
 });
 

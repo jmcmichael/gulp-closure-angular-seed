@@ -170,7 +170,7 @@ gulp.task('build:inject', ['build:copydep'], function(cb) {
         }
       ]
     }))
-    .pipe(inject(gulp.src([conf.dirs.dist + '/app/js/**/*.js',conf.dirs.dist + '/app/styles/**/*.css' ],{ read: false, cwd: 'dist/app/' }),
+    .pipe(inject(gulp.src([ conf.dirs.dist + '/app/js/**/*.js', conf.dirs.dist + 'styles/**/*.css' ],{ read: false, cwd: 'dist/app/' }),
       { relative: false, addRootSlash: false }
     ))
     .pipe(gulp.dest(conf.dirs.dist + '/app'));
