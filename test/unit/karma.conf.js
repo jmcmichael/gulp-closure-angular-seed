@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+ * karma configuration function
+ */
 module.exports = function(config) {
   config.set({
 
@@ -28,7 +31,7 @@ module.exports = function(config) {
 
     exclude: [
       'app/states/**/*.pageobject.js',
-      'app/states/**/*.scenario.js',
+      'app/states/**/*.scenario.js'
     ],
 
     autoWatch: false,
@@ -46,8 +49,8 @@ module.exports = function(config) {
     reporters: ['spec', 'coverage'],
 
     coverageReporter: {
-      type : 'html',
-      dir : 'test/unit/coverage/'
+      type: 'html',
+      dir: 'test/unit/coverage/'
     }
 
   });

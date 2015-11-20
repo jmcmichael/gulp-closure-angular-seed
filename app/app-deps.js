@@ -6,7 +6,7 @@ goog.addDependency('../components/services/version-service.js', ['my.version.Ser
 goog.addDependency('../js/app.js', ['app'], ['my.check.Filter.factory', 'my.first.module', 'my.second.module', 'my.templates', 'my.third.module', 'my.version.Directive.factory', 'my.version.Service'], false);
 goog.addDependency('../js/templates.js', ['my.templates'], [], false);
 goog.addDependency('../states/first/first-controller.js', ['my.first.Ctrl'], [], false);
-goog.addDependency('../states/first/first-module.js', ['my.first.module'], ['myXh.first.Ctrl'], false);
+goog.addDependency('../states/first/first-module.js', ['my.first.module'], ['my.first.Ctrl'], false);
 goog.addDependency('../states/second/second-controller.js', ['my.second.Ctrl'], [], false);
 goog.addDependency('../states/second/second-module.js', ['my.second.module'], ['my.second.Ctrl'], false);
 goog.addDependency('../states/third/one/one-controller.js', ['my.third.one.Ctrl'], ['my.third.Ctrl'], false);

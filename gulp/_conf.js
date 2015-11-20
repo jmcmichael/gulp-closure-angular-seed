@@ -1,7 +1,10 @@
 'use strict';
-root = require('app-root-path');
+var root = require('app-root-path');
 
-var conf = {
+/**
+ * conf provides file globs for build/dev workflow tasks
+ */
+module.exports.conf = {
   scripts: {
     build: [
       'app/js/**/*.js',
@@ -31,7 +34,6 @@ var conf = {
     ]
   },
   goog: [
-    'app/goog/*.js',
     'app/goog/base.js',
     'app/goog/deps.js'
   ],
@@ -42,8 +44,9 @@ var conf = {
     'app/**/*.styl'
   ],
   templates: [
-    'app/**/*.tpl.html'
+    'app/**/*.tpl.html',
   ],
+  lib: 'bower_components',
   dirs: {
     temp: root + '/.tmp',
     dist: root + '/dist',
@@ -69,5 +72,3 @@ var conf = {
     ]
   }
 };
-
-exports.conf = conf;
