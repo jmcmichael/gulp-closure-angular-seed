@@ -24,7 +24,9 @@ var gulp = require('gulp'),
   insert = require('gulp-insert'),
   rename = require('gulp-rename'),
   templateCache = require('gulp-angular-templatecache'),
-  sourcemaps = require('gulp-sourcemaps');
+  sourcemaps = require('gulp-sourcemaps'),
+  htmlmin = require('gulp-htmlmin'),
+  server = require('browser-sync').create();
 
 var closureConf = {
   default: {
@@ -109,7 +111,8 @@ gulp.task('build:scripts', function() {
     .pipe(debug({title: 'build:scripts - pre compile'}))
     .pipe(compiler(closureConf.default))
     .pipe(debug({title: 'build:scripts- post compile'}))
-    .pipe(gulp.dest(conf.dirs.dist + '/app/js'));
+    .pipe(gulp.dest(conf.dirs.dist + '/app/js'))
+    .pipe(server.stream());
 });
 
 // debug script compile, toggles closure's debug mode and pretty-print
@@ -120,7 +123,8 @@ gulp.task('build:debug:scripts', function() {
     .pipe(debug({title: 'build:debug:scripts - pre compile'}))
     .pipe(compiler(closureConf.debug))
     .pipe(debug({title: 'build:debug:scripts - post compile'}))
-    .pipe(gulp.dest(conf.dirs.dist + '/app/js'));
+    .pipe(gulp.dest(conf.dirs.dist + '/app/js'))
+    .pipe(server.stream());
 });
 
 // concatenates and compiles .styl files with sourcemap
@@ -136,7 +140,8 @@ gulp.task('build:styles', ['clean:dist:styles'], function() {
         return file.relative + '.map';
       }
     }))
-    .pipe(gulp.dest(conf.dirs.dist + '/app/styles'));
+    .pipe(gulp.dest(conf.dirs.dist + '/app/styles'))
+    .pipe(server.stream());
 });
 
 // copies vendor scripts and styles to dist/lib
@@ -174,26 +179,33 @@ gulp.task('build:inject', ['build:copydep'], function(cb) {
         }
       }
     }))
-    //.pipe(cdnizer({
-    //  allowRev: true,
-    //  allowMin: true,
-    //  relativeRoot: 'app/',
-    //  files: [
-    //    {
-    //      file: '**/*/angular.js',
-    //      package: 'angular',
-    //      test: 'window.angular',
-    //      cdn: '//ajax.googleapis.com/ajax/libs/angularjs/${ version }/angular.min.js'
-    //    },
-    //    {
-    //      file: '**/*/angular-ui-router.js',
-    //      package: 'angular-ui-router',
-    //      test: 'window.angular.module("ui.router")',
-    //      cdn: '//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/' +
-    //      '${ version }/angular-ui-router.min.js'
-    //    }
-    //  ]
-    //}))
+    .pipe(cdnizer({
+      allowRev: true,
+      allowMin: true,
+      relativeRoot: 'app/',
+      files: [
+        {
+          file: '**/*/angular.js',
+          package: 'angular',
+          test: 'window.angular',
+          cdn: '//ajax.googleapis.com/ajax/libs/angularjs/${ version }/angular.min.js'
+        },
+        {
+          file: '**/*/angular-ui-router.js',
+          package: 'angular-ui-router',
+          test: 'window.angular.module("ui.router")',
+          cdn: '//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/' +
+          '${ version }/angular-ui-router.min.js'
+        }
+      ]
+    }))
     .pipe(inject(es.merge(scriptSrc, stylesSrc), { relative: false, addRootSlash: false }))
-    .pipe(gulp.dest(conf.dirs.dist + '/app'));
+    .pipe(htmlmin({
+      collapseWhitespace: true,
+      conservativeCollapse: true,
+      preserveLineBreaks: true,
+      removeComments: true
+    }))
+    .pipe(gulp.dest(conf.dirs.dist + '/app'))
+    .pipe(server.stream());
 });
