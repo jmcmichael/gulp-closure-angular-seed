@@ -78,6 +78,7 @@ var closureConf = {
 gulp.task('build', function(cb) {
   sequence(
     'clean:dist',
+    'build:prep',
     'build:templates',
     [
       'build:scripts',
@@ -91,6 +92,7 @@ gulp.task('build', function(cb) {
 gulp.task('build:debug', function(cb) {
   sequence(
     'clean:dist',
+    'build:prep',
     [
       'build:debug:scripts',
       'build:templates',
@@ -158,6 +160,11 @@ gulp.task('build:templates', function() {
     .pipe(templateCache('templates.js', { standalone: true }))
     .pipe(insert.prepend('"use strict"; goog.provide("my.templates"); my.templates = '))
     .pipe(gulp.dest(conf.dirs.temp + '/templateCache'));
+});
+
+// performs any prep work necessary for build success
+gulp.task('build:prep', function(done) {
+  sequence('prep:goog', done);
 });
 
 // identifies bower library dependencies, injects CDN links w/ fallback test

@@ -10,9 +10,8 @@ var gulp = require('gulp'),
   fs = require('fs'),
   gutil = require('gulp-util'),
   glob = require('globby').sync,
-  stylint = require('gulp-stylint'),
+  //stylint = require('gulp-stylint'),
   exec = require('child_process').exec,
-  symlink = require('gulp-symlink'),
   sequence = require('run-sequence'),
   debug = require('gulp-debug'),
   stylus = require('gulp-stylus'),
@@ -66,24 +65,10 @@ gulp.task('dev:inject', function(cb) {
 
 // prep tasks for dev - now it just copies goog deps for easy access in .tmp
 gulp.task('dev:prep', function(cb) {
-  sequence('prep:goog', 'prep:app-deps', cb);
+  sequence('prep:goog', 'dev:prep:app-deps', cb);
 });
 
-// creates a symlink to the closure goog library
-gulp.task('prep:goog', function(cb) {
-  var dest = root + '/node_modules/google-closure-library/closure/goog',
-    path = root + '/app/goog';
-  fs.symlink(dest, path, function(err) {
-    if (err && err.code === 'EEXIST') {
-      cb();
-    } else if (err) {
-      process.exit('goog symlink error: ' + err.code);
-    }
-  });
-  // TODO: handle errors
-});
-
-gulp.task('prep:app-deps', function(done) {
+gulp.task('dev:prep:app-deps', function(done) {
   var googBase = gulp.src([conf.dirs.app + '/goog/base.js'], {base: 'goog/'});
   var devFiles = gulp.src(conf.scripts.dev);
   temp.mkdir('closure-compiler-temp', function(err, tmpPath) {
@@ -111,9 +96,9 @@ gulp.task('prep:app-deps', function(done) {
 // compile styl to css, copy to .tmp
 gulp.task('dev:styles', function(cb) {
   return gulp.src(conf.styles)
-    .pipe(stylint({ config: '.stylintrc'}))
+    //.pipe(stylint({ config: '.stylintrc'}))
     .pipe(stylus({ compress: false }))
-    .pipe(stylint.reporter())
+    //.pipe(stylint.reporter())
     .pipe(gulp.dest(conf.dirs.temp));
 });
 
