@@ -73,7 +73,7 @@ gulp.task('dev:prep:app-deps', function(done) {
   var devFiles = gulp.src(conf.scripts.dev);
   temp.mkdir('closure-compiler-temp', function(err, tmpPath) {
     if (err) {
-      done(err, 'error creating temp directory');
+      done(err, 'Error creating temp directory.');
     }
     var depsPath = tmpPath + '/' + conf.depsWriter.fileName;
     var command = conf.depsWriter.exec +
