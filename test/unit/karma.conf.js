@@ -10,22 +10,9 @@ module.exports = function(config) {
 
     frameworks: ['jasmine'],
 
-    files: [
-      'app/js/lib/angular.js',
-      'app/js/lib/angular-ui-router.js',
-      'app/js/lib/angular-mocks.js',
-
-      'closure/library/base.js',
-      'closure/library/deps.js',
-
-      'app/components/**/*.js',
-
-      // child states have to be loaded BEFORE parent state or goog.require doesn't work
-      'app/states/*/*-controller.js',
-      'app/states/*/*/*.js',
-      'app/states/**/*.js',
-
-      // app.js has to be loaded at the end to make goog.require work
+    /* inject:files */ files: [
+      'app/goog/base.js',
+      'app/app-deps.js',
       'app/js/app.js'
     ],
 
@@ -41,17 +28,17 @@ module.exports = function(config) {
     singleRun: true,
 
     preprocessors: {
-      'app/js/app.js': 'coverage',
-      'app/states/**/!(*.pageobject|*.scenario|*.spec).js': 'coverage',
-      'app/components/**/!(*.spec).js': 'coverage'
+      //'app/js/app.js': 'coverage',
+      //'app/states/**/!(*.pageobject|*.scenario|*.spec).js': 'coverage',
+      //'app/components/**/!(*.spec).js': 'coverage'
     },
 
-    reporters: ['spec', 'coverage'],
-
-    coverageReporter: {
-      type: 'html',
-      dir: 'test/unit/coverage/'
-    }
+    reporters: ['spec']
+    //
+    //,coverageReporter: {
+    //  type: 'html',
+    //  dir: 'test/unit/coverage/'
+    //}
 
   });
 };

@@ -79,12 +79,11 @@ gulp.task('dev:prep:app-deps', function(done) {
     var command = conf.depsWriter.exec +
       ' --root_with_prefix="' + conf.dirs.app + '/ ../"' +
       ' --output_file="' + tmpPath + '/app-deps.js"';
-    console.info(command);
     exec(command, function(error, stdout, stderr) {
       if (error) {
-        console.error('stderr: ' + error);
+        gutil.log('stderr: ' + error);
       } else {
-        console.log('stdout: ' + stdout);
+        gutil.log('Wrote app-deps.js to ' + conf.dirs.app);
       }
       gulp.src(depsPath)
         .pipe(gulp.dest(conf.dirs.app));
