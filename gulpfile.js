@@ -10,21 +10,12 @@ var gulp = require('gulp'),
 
 // creates a symlink to the closure goog library
 gulp.task('prep:goog', function(done) {
-  var dest = root + '/node_modules/google-closure-library/closure/goog/';
-  var path = root + '/app/goog/';
+  var dest = root + '/node_modules/google-closure-library/closure/goog';
+  var path = root + '/app/goog';
 
-  console.log('dest: ' + dest);
-  console.log('path: ' + path);
   return gulp.src(dest)
     .pipe(debug({title: 'symlink src:'}))
-    .pipe(symlink(path));
-  //fs.symlink(dest, path, function(err) {
-  //  if (err && err.code === 'EEXIST') {
-  //    done();
-  //  } else if (err) {
-  //    process.exit('goog symlink error: ' + err.code);
-  //  }
-  //});
+    .pipe(symlink(path, {force:true}));
 });
 
 gulp.task('default', ['clean'], function () {

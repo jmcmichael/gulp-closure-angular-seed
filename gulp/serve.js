@@ -34,7 +34,7 @@ gulp.task('serve', ['dev:serve:prep'], function(done) {
 });
 
 gulp.task('dev:serve:prep', function(done) {
-  sequence('dev:styles', 'dev:inject', done);
+  sequence('dev:prep', 'dev:styles', 'dev:inject', done);
 });
 
 gulp.task('serve:dist', ['build'], function(done) {
