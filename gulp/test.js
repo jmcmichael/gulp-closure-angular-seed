@@ -13,8 +13,7 @@ var gulp = require('gulp'),
 
 gulp.task('test:unit', function(done) {
   new unitServer({
-    configFile: root + '/test/unit/karma.conf.js',
-    singleRun: true
+    configFile: root + '/test/unit/karma.conf.js'
   }, done).start();
 });
 

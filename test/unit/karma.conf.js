@@ -5,40 +5,36 @@
  */
 module.exports = function(config) {
   config.set({
-
     basePath: '../../',
+    files: [
+      {pattern: 'bower_components/angular/angular.js', watched: false, included: true, served: true},
+      {pattern: 'bower_components/angular-ui-router/release/angular-ui-router.js', watched: false, included: true, served: true},
 
-    frameworks: ['jasmine'],
+      {pattern: 'app/goog/base.js', watched: false, included: true, served: true},
+      {pattern: 'app/goog/deps.js', watched: false, included: false, served: true },
+      {pattern: 'app/app-deps.js', watched: true, included: true, served: true},
+      {pattern: 'app/js/app.js', watched: true, included: true, served: true},
+      {pattern: 'app/js/templates.js', watched: false, included: false, served: true},
+      {pattern: 'app/states/**/*.js', watched: true, included: false, served: true },
+      {pattern: 'app/components/**/*.js', watched: true, included: false, served: true },
 
-    /* inject:files */ files: [
-      'app/goog/base.js',
-      'app/app-deps.js',
-      'app/js/app.js'
+      {pattern: 'app/**/*.spec.js', watched: true, included: false, served: false}
     ],
-
     exclude: [
-      'app/states/**/*.pageobject.js',
-      'app/states/**/*.scenario.js'
+      'app/externs/**/*.*',
+      'app/**/*.pageobject.js',
+      'app/**/*.scenario.js'
     ],
-
-    autoWatch: false,
-
-    browsers: ['Firefox'],
-
-    singleRun: true,
-
     preprocessors: {
-      //'app/js/app.js': 'coverage',
-      //'app/states/**/!(*.pageobject|*.scenario|*.spec).js': 'coverage',
-      //'app/components/**/!(*.spec).js': 'coverage'
+      //// tests are preprocessed for dependencies (closure) and for iits
+      //'app/**/*.spec.js': ['closure', 'closure-iit'],
+      //// source files are preprocessed for dependencies
+      //'app/**/*.js': ['closure'],
+      //// external deps
+      //'lib/goog/deps.js': ['closure-deps']
     },
-
-    reporters: ['spec']
-    //
-    //,coverageReporter: {
-    //  type: 'html',
-    //  dir: 'test/unit/coverage/'
-    //}
-
+    frameworks: ['mocha', 'chai'],
+    browsers: ['PhantomJS'],
+    logLevel: 'LOG_DEBUG'
   });
 };
