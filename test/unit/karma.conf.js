@@ -21,10 +21,6 @@ module.exports = function(config) {
       {pattern: 'app/goog/base.js', watched: false, included: true, served: true},
       {pattern: 'app/goog/**/*.js', watched: false, included: false, served: true },
 
-      // app unit tests
-      // {pattern: 'app/**/*.spec.js', watched: true, included: true, served: true},
-      {pattern: 'app/states/first/*.spec.js', watched: true, included: true, served: true},
-
       // app
       {pattern: 'app/app-deps.js', watched: true, included: true, served: true},
       {pattern: 'app/js/app.js', watched: true, included: true, served: true},
@@ -36,6 +32,10 @@ module.exports = function(config) {
       {pattern: 'app/states/**/*.js', watched: true, included: false, served: true },
       {pattern: 'app/components/**/*.js', watched: true, included: false, served: true },
 
+      // app unit tests
+      // {pattern: 'app/**/*.spec.js', watched: true, included: true, served: true},
+      {pattern: 'app/states/second/*.spec.js', watched: true, included: true, served: true}
+
     ],
     exclude: [
       'app/externs/**/*',
@@ -43,25 +43,30 @@ module.exports = function(config) {
       'app/**/*.scenario.js'
     ],
     preprocessors: {
-      // tests are preprocessed for dependencies (closure) and for iits
-      //'app/**/*.spec.js': ['closure', 'closure-iit'],
-      'app/states/first/*.spec.js': ['closure', 'closure-iit'],
-
       // source files are preprocessed for dependencies
       'app/js/**/*.js': ['closure'],
       'app/states/**/*.js': ['closure'],
       'app/components/**/*.js': ['closure'],
 
       // external deps
-      'app/goog/closure/**/*.js': ['closure-deps']
+      'app/goog/closure/**/*.js': ['closure-deps'],
+
+      // bootstrap angular
+      'app/index.html': ['ngbootstrapfix'],
+
+      // tests are preprocessed for dependencies (closure) and for iits
+      //'app/**/*.spec.js': ['closure', 'closure-iit'],
+      'app/states/second/*.spec.js': ['closure', 'closure-iit'],
     },
     plugins: [
       'karma-jasmine',
       'karma-closure',
-      'karma-phantomjs-launcher'
+      'karma-phantomjs-launcher',
+      'karma-chrome-launcher',
+      'karma-firefox-launcher'
     ],
     frameworks: ['jasmine', 'closure'],
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
     //logLevel: 'LOG_DEBUG'
     logLevel: 'LOG_WARN'
   });

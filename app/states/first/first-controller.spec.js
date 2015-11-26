@@ -7,9 +7,6 @@ describe('FirstCtrl', function() {
 
   var ctrl;
 
-  //beforeEach(goog.require('my.first.module'));
-
-  //beforeEach(angular.bootstrap(document, ['first']));
   beforeEach(module('first'));
 
   beforeEach(inject(function($injector) {
@@ -24,6 +21,10 @@ describe('FirstCtrl', function() {
 
   it('should set the default value of "animals" model', function() {
     expect(ctrl.animals).toEqual(['dog', 'cat', 'mouse']);
+  });
+
+  it('should set "hello"', function() {
+    expect(ctrl.hello).toEqual('hello');
   });
 
 });

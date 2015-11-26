@@ -11,7 +11,6 @@ goog.provide('my.first.module');
 goog.require('my.first.Ctrl');
 
 
-
 /**
  * First module.
  *
@@ -20,7 +19,6 @@ goog.require('my.first.Ctrl');
 my.first.module = angular.module('first', [
   'ui.router'
 ]);
-
 
 
 /**
@@ -40,7 +38,6 @@ my.first.module.configuration = function($stateProvider) {
   });
 
 };
-
 
 
 /**
