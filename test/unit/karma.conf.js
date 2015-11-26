@@ -33,8 +33,8 @@ module.exports = function(config) {
       {pattern: 'app/components/**/*.js', watched: true, included: false, served: true },
 
       // app unit tests
-      // {pattern: 'app/**/*.spec.js', watched: true, included: true, served: true},
-      {pattern: 'app/components/directives/*.spec.js', watched: true, included: true, served: true}
+      {pattern: 'app/**/*.spec.js', watched: true, included: true, served: true},
+      //{pattern: 'app/components/directives/*.spec.js', watched: true, included: true, served: true}
 
     ],
     exclude: [
@@ -55,8 +55,8 @@ module.exports = function(config) {
       'app/index.html': ['ngbootstrapfix'],
 
       // tests are preprocessed for dependencies (closure) and for iits
-      //'app/**/*.spec.js': ['closure', 'closure-iit'],
-      'app/components/directives/*.spec.js': ['closure', 'closure-iit']
+      'app/**/*.spec.js': ['closure', 'closure-iit'],
+      //'app/components/directives/*.spec.js': ['closure', 'closure-iit']
     },
     plugins: [
       'karma-jasmine',

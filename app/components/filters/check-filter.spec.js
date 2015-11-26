@@ -2,7 +2,7 @@
 
 describe('check filter', function() {
 
-  beforeEach(module('app'));
+  beforeEach(module('components'));
 
   it('should convert boolean values', inject(function(checkFilter) {
     expect(checkFilter(true)).toBe('\u2714');
