@@ -34,7 +34,7 @@ module.exports = function(config) {
 
       // app unit tests
       // {pattern: 'app/**/*.spec.js', watched: true, included: true, served: true},
-      {pattern: 'app/states/second/*.spec.js', watched: true, included: true, served: true}
+      {pattern: 'app/components/directives/*.spec.js', watched: true, included: true, served: true}
 
     ],
     exclude: [
@@ -56,7 +56,7 @@ module.exports = function(config) {
 
       // tests are preprocessed for dependencies (closure) and for iits
       //'app/**/*.spec.js': ['closure', 'closure-iit'],
-      'app/states/second/*.spec.js': ['closure', 'closure-iit'],
+      'app/components/directives/*.spec.js': ['closure', 'closure-iit']
     },
     plugins: [
       'karma-jasmine',

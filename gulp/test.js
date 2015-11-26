@@ -11,16 +11,17 @@ var gulp = require('gulp'),
   e2eServer = require('gulp-angular-protractor'),
   root = require('app-root-path');
 
-gulp.task('test:unit', function(done) {
+gulp.task('test:unit', ['dev:prep:app-deps'], function(done) {
   new unitServer({
     configFile: root + '/test/unit/karma.conf.js'
   }, done).start();
 });
 
 gulp.task('test:unit:prep', ['dev:prep:app-deps'], function() {
-  var googBase = gulp.src([conf.dirs.app + '/goog/base.js'], {base: 'goog/', read:false});
-  var appDeps = gulp.src([conf.dirs.app + '/app-deps.js'], {read:false});
-  var appFiles = gulp.src([conf.scripts.dev], {read:false});
+  var googBase = gulp.src([conf.dirs.app + '/goog/base.js'], {base: 'goog/', read: false});
+  var appDeps = gulp.src([conf.dirs.app + '/app-deps.js'], {read: false});
+  //var appFiles = gulp.src([conf.scripts.dev], {read: false});
+  var appFiles = gulp.src([conf.dirs.app + '/js/app.js']);
 
   var allDeps = es.merge(googBase, appDeps, appFiles)
     .pipe(order([
@@ -35,7 +36,7 @@ gulp.task('test:unit:prep', ['dev:prep:app-deps'], function() {
     .pipe(inject(allDeps), {
       starttag: '/* inject:files */ files: [',
       endtag: ']',
-      transform: function (filepath, file, i, length) {
+      transform: function(filepath, file, i, length) {
         console.log('injecting ' + file);
         return '  "' + filepath + '"' + (i + 1 < length ? ',' : '');
       }

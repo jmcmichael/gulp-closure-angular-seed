@@ -2,7 +2,7 @@
 
 describe('version directive', function() {
 
-  beforeEach(module('app'));
+  beforeEach(module('components'));
 
   it('should print current version', function() {
 
