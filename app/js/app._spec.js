@@ -1,16 +1,8 @@
-'use strict';
-
-/**
- * Karma unit tests.
- */
-describe('FirstCtrl', function() {
+describe('app', function() {
 
   var ctrl;
 
-  //beforeEach(goog.require('my.first.module'));
-
-  //beforeEach(angular.bootstrap(document, ['first']));
-  beforeEach(module('first'));
+  beforeEach(module('app'));
 
   beforeEach(inject(function($injector) {
 
@@ -26,4 +18,10 @@ describe('FirstCtrl', function() {
     expect(ctrl.animals).toEqual(['dog', 'cat', 'mouse']);
   });
 
+});
+
+describe('main', function() {
+  it('should call through a(), b() and sum', function() {
+    expect(main(1, 2)).toBe(7);
+  })
 });
