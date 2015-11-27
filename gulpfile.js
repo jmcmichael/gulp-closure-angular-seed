@@ -1,8 +1,10 @@
 'use strict';
 
 var gulp = require('gulp'),
+  conf = require('./gulp/_conf.js').conf,
   fs = require('fs'),
   symlink = require('gulp-symlink'),
+  libs = require('main-bower-files'),
   root = require('app-root-path'),
   debug = require('gulp-debug'),
   del = require('del');
@@ -16,6 +18,12 @@ gulp.task('prep:goog', function(done) {
   return gulp.src(dest)
     .pipe(debug({title: 'symlink src:'}))
     .pipe(symlink(path, {force:true}));
+});
+
+// copies vendor scripts and styles to dist/lib
+gulp.task('prep:copylibs', function() {
+  return gulp.src(libs({ dest: 'lib' }), { base: 'bower_components' })
+    .pipe(gulp.dest(conf.dirs.dist + '/app/lib'));
 });
 
 gulp.task('default', ['clean'], function () {

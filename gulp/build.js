@@ -12,7 +12,6 @@ var gulp = require('gulp'),
   rev = require('gulp-rev'),
   glob = require('globby').sync,
   debug = require('gulp-debug'),
-  libs = require('main-bower-files'),
   sequence = require('run-sequence'),
   es = require('event-stream'),
   wiredep = require('wiredep').stream,
@@ -83,7 +82,7 @@ gulp.task('build', function(cb) {
     [
       'build:scripts',
       'build:styles',
-      'build:copydep'
+      'prep:copylibs'
     ],
     'build:inject',
     cb);
@@ -97,7 +96,7 @@ gulp.task('build:debug', function(cb) {
       'build:debug:scripts',
       'build:templates',
       'build:styles',
-      'build:copydep'
+      'prep:copylibs'
     ],
     'build:inject',
     cb);
@@ -146,12 +145,6 @@ gulp.task('build:styles', ['clean:dist:styles'], function() {
     .pipe(server.stream());
 });
 
-// copies vendor scripts and styles to dist/lib
-gulp.task('build:copydep', function() {
-  return gulp.src(libs({ dest: 'lib' }), { base: 'bower_components' })
-    .pipe(gulp.dest(conf.dirs.dist + '/app/lib'));
-});
-
 // collects all angular templates (*.tpl.html), creates templateCache module script
 // for later injection
 gulp.task('build:templates', function() {
@@ -168,7 +161,7 @@ gulp.task('build:prep', function(done) {
 });
 
 // identifies bower library dependencies, injects CDN links w/ fallback test
-gulp.task('build:inject', ['build:copydep'], function(cb) {
+gulp.task('build:inject', ['prep:copylibs'], function(cb) {
   var scriptSrc = gulp.src(conf.dirs.dist + '/app/js/**/*.js', {read: false, cwd: 'dist/app'});
   var stylesSrc = gulp.src(conf.dirs.dist + '/app/styles/**/*.css', {read: false, cwd: 'dist/app'});
 

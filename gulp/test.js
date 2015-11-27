@@ -11,13 +11,13 @@ var gulp = require('gulp'),
   e2eServer = require('gulp-angular-protractor'),
   root = require('app-root-path');
 
-gulp.task('test:unit', ['dev:prep:app-deps'], function(done) {
+gulp.task('test:unit', ['dev:prep:app-deps', 'prep:copylibs'], function(done) {
   new unitServer({
     configFile: root + '/test/unit/karma.conf.js'
   }, done).start();
 });
 
-gulp.task('test:unit:prep', ['dev:prep:app-deps'], function() {
+gulp.task('test:unit:prep', ['dev:prep:app-deps', ''], function() {
   var googBase = gulp.src([conf.dirs.app + '/goog/base.js'], {base: 'goog/', read: false});
   var appDeps = gulp.src([conf.dirs.app + '/app-deps.js'], {read: false});
   //var appFiles = gulp.src([conf.scripts.dev], {read: false});
