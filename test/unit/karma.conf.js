@@ -16,6 +16,8 @@ module.exports = function(config) {
         watched: false, included: true, served: true},
       {pattern: 'bower_components/angular-mocks/angular-mocks.js',
         watched: false, included: true, served: true},
+      {pattern: 'bower_components/bind-polyfill/index.js',
+        watched: false, included: true, served: true},
 
       // closure base and libs
       {pattern: 'app/goog/base.js', watched: false, included: true, served: true},
@@ -63,10 +65,25 @@ module.exports = function(config) {
       'karma-closure',
       'karma-phantomjs-launcher',
       'karma-chrome-launcher',
-      'karma-firefox-launcher'
+      'karma-firefox-launcher',
+      'karma-ng-bootstrap-fix-preprocessor'
     ],
     frameworks: ['jasmine', 'closure'],
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS', 'PhantomJS_custom'],
+    // you can define custom flags
+    customLaunchers: {
+      'PhantomJS_custom': {
+        base: 'PhantomJS',
+        options: {
+          windowName: 'my-window',
+          settings: {
+            webSecurityEnabled: false
+          },
+        },
+        flags: ['--load-images=true'],
+        debug: false
+      }
+    },
     //logLevel: 'LOG_DEBUG'
     logLevel: 'LOG_WARN'
   });
