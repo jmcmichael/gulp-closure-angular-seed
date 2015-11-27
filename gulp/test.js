@@ -1,3 +1,6 @@
+/** gulp/test.js
+ *
+ **/
 'use strict';
 
 var gulp = require('gulp'),
@@ -13,7 +16,12 @@ var gulp = require('gulp'),
 
 gulp.task('test:unit', ['dev:prep:app-deps', 'prep:copylibs'], function(done) {
   new unitServer({
-    configFile: root + '/test/unit/karma.conf.js'
+    configFile: root + '/test/unit/karma.conf.js',
+    singleRun: true,
+    logLevel: 'LOG_ERROR', // DISABLE, ERROR, WARN, INFO (default), DEBUG
+    client: {
+      captureConsole: false
+    }
   }, done).start();
 });
 

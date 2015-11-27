@@ -4,8 +4,6 @@
  * karma configuration function
  */
 module.exports = function(config) {
-  var tests = 'app/states/first/*.spec.js';
-
   config.set({
     basePath: '../../',
     files: [
@@ -61,6 +59,7 @@ module.exports = function(config) {
     },
     plugins: [
       'karma-jasmine',
+      'karma-spec-reporter',
       'karma-closure',
       'karma-phantomjs-launcher',
       'karma-chrome-launcher',
@@ -83,6 +82,13 @@ module.exports = function(config) {
         debug: false // toggle true, and PhantomJS_custom starts a debug browser
       }
     },
-    logLevel: 'LOG_INFO' // _DISABLE, _ERROR, _WARN, _INFO (default), _DEBUG
+    reporters: ['spec'],
+    specReporter: {
+      maxLogLines: 5,         // limit number of lines logged per test
+      suppressErrorSummary: true,  // do not print error summary
+      suppressFailed: false,  // do not print information about failed tests
+      suppressPassed: false,  // do not print information about passed tests
+      suppressSkipped: true  // do not print information about skipped tests
+    }
   });
 };
