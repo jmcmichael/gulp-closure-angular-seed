@@ -60,6 +60,7 @@
     "karma-mocha": "^0.2.1",
     "karma-ng-bootstrap-fix-preprocessor": "^0.1.0",
     "karma-phantomjs-launcher": "^0.2.1",
+    "karma-sauce-launcher": "^0.3.0",
     "lodash": "^3.10.1",
     "main-bower-files": "^2.9.0",
     "mocha": "^2.3.4",

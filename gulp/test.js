@@ -25,6 +25,14 @@ gulp.task('test:unit', ['dev:prep:app-deps', 'prep:copylibs'], function(done) {
   }, done).start();
 });
 
+gulp.task('test:unit:remote', ['dev:prep:app-deps', 'prep:copylibs'], function(done) {
+  new unitServer({
+    configFile: root + '/test/unit/karma-remote.conf.js',
+    singleRun: true,
+    logLevel: 'LOG_ERROR' // DISABLE, ERROR, WARN, INFO (default), DEBUG
+  }, done).start();
+});
+
 gulp.task('test:unit:prep', ['dev:prep:app-deps', ''], function() {
   var googBase = gulp.src([conf.dirs.app + '/goog/base.js'], {base: 'goog/', read: false});
   var appDeps = gulp.src([conf.dirs.app + '/app-deps.js'], {read: false});

@@ -1,9 +1,34 @@
-'use strict';
-
-/**
- * karma configuration function
+/** test/unit/karma-remote.conf.js
+ * karma remote configuration function
  */
+'use strict';
 module.exports = function(config) {
+  var customLaunchers = {
+    sl_chrome: {
+      base: 'SauceLabs',
+      browserName: 'chrome',
+      platform: 'Windows 7',
+      version: '35'
+    },
+    sl_firefox: {
+      base: 'SauceLabs',
+      browserName: 'firefox',
+      version: '30'
+    },
+    sl_ios_safari: {
+      base: 'SauceLabs',
+      browserName: 'iphone',
+      platform: 'OS X 10.9',
+      version: '7.1'
+    },
+    sl_ie_11: {
+      base: 'SauceLabs',
+      browserName: 'internet explorer',
+      platform: 'Windows 8.1',
+      version: '11'
+    }
+  };
+
   config.set({
     basePath: '../../',
     files: [
@@ -61,29 +86,13 @@ module.exports = function(config) {
       'karma-jasmine',
       'karma-spec-reporter',
       'karma-closure',
-      'karma-phantomjs-launcher',
-      'karma-chrome-launcher',
-      'karma-firefox-launcher',
-      'karma-ng-bootstrap-fix-preprocessor'
+      'karma-ng-bootstrap-fix-preprocessor',
+      'karma-sauce-launcher'
     ],
     frameworks: ['jasmine', 'closure'],
-    browsers: ['PhantomJS', 'PhantomJS_custom'],
-    // you can define custom flags
-    customLaunchers: {
-      'PhantomJS_custom': {
-        base: 'PhantomJS',
-        options: {
-          windowName: 'my-window',
-          settings: {
-            webSecurityEnabled: false
-          }
-        },
-        flags: ['--load-images=true'],
-        debug: false // toggle true, and PhantomJS_custom starts a debug browser
-      }
-    },
-
-    reporters: ['spec'],
+    browsers: Object.keys(customLaunchers),
+    customLaunchers: customLaunchers,
+    reporters: ['spec', 'saucelabs'],
     specReporter: {
       maxLogLines: 5,         // limit number of lines logged per test
       suppressErrorSummary: true,  // do not print error summary

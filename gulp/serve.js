@@ -15,7 +15,9 @@ var gulp = require('gulp'),
   root = require('app-root-path'),
   server = require('browser-sync');
 
-gulp.task('serve', ['dev:serve:prep'], function(done) {
+gulp.task('serve', ['serve:dev'])
+
+gulp.task('serve:dev', ['serve:dev:prep'], function(done) {
   server({
     notify: false,
     directory: false,
@@ -28,12 +30,14 @@ gulp.task('serve', ['dev:serve:prep'], function(done) {
       }
     }
   });
-  gulp.watch(conf.styles, ['dev:styles']).on('change', server.reload);
-  gulp.watch(conf.templates, ['dev:templates']).on('change', server.reload);
-  //done();
+  //gulp.watch(conf.styles, ['dev:styles']).on('change', server.reload);
+  //gulp.watch(conf.templates, ['dev:templates']).on('change', server.reload);
+  //gulp.watch(conf.scripts.build, ['clean:dist:js', 'build:prep', 'build:inject'])
+  //  .on('change', server.reload);
+  done();
 });
 
-gulp.task('dev:serve:prep', function(done) {
+gulp.task('serve:dev:prep', function(done) {
   sequence('dev:prep', 'dev:styles', 'dev:inject', done);
 });
 
@@ -48,17 +52,17 @@ gulp.task('serve:dist', ['build'], function(done) {
   //gulp.watch(conf.lib, ['clean:dist:lib', 'build:copydep', 'build:inject'])
   //  .on('change', server.reload);
 
-  gulp.watch(conf.index, ['build:inject'])
-    .on('change', server.reload);
-
-  gulp.watch(conf.styles, ['clean:dist:styles', 'build:styles', 'build:inject'])
-    .on('change', server.reload);
-
-  gulp.watch(conf.templates, ['clean:dist:js', 'build:templates', 'build:inject'])
-    .on('change', server.reload);
-
-  gulp.watch(conf.scripts.build, ['clean:dist:js', 'build:prep', 'build:inject'])
-    .on('change', server.reload);
+  //gulp.watch(conf.index, ['build:inject'])
+  //  .on('change', server.reload);
+  //
+  //gulp.watch(conf.styles, ['clean:dist:styles', 'build:styles', 'build:inject'])
+  //  .on('change', server.reload);
+  //
+  //gulp.watch(conf.templates, ['clean:dist:js', 'build:templates', 'build:inject'])
+  //  .on('change', server.reload);
+  //
+  //gulp.watch(conf.scripts.build, ['clean:dist:js', 'build:prep', 'build:inject'])
+  //  .on('change', server.reload);
 
   done();
 });
