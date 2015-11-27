@@ -56,7 +56,7 @@ module.exports = function(config) {
       // bootstrap angular
       'app/index.html': ['ngbootstrapfix'],
 
-      // tests are preprocessed for dependencies (closure) and for iits
+      // tests are preprocessed for dependencies (closure) and for it/describe (closure-iit)
       'app/**/*.spec.js': ['closure', 'closure-iit']
     },
     plugins: [
@@ -77,13 +77,12 @@ module.exports = function(config) {
           windowName: 'my-window',
           settings: {
             webSecurityEnabled: false
-          },
+          }
         },
         flags: ['--load-images=true'],
-        debug: false
+        debug: false // toggle true, and PhantomJS_custom starts a debug browser
       }
     },
-    //logLevel: 'LOG_DEBUG'
-    logLevel: 'LOG_WARN'
+    logLevel: 'LOG_INFO' // _DISABLE, _ERROR, _WARN, _INFO (default), _DEBUG
   });
 };
