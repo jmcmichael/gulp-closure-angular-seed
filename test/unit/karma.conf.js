@@ -90,6 +90,7 @@ module.exports = function(config) {
       suppressFailed: false,  // do not print information about failed tests
       suppressPassed: false,  // do not print information about passed tests
       suppressSkipped: true  // do not print information about skipped tests
-    }
+    },
+    logLevel: config.LOG_INFO
   });
 };
