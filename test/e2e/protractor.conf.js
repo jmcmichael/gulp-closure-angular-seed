@@ -8,10 +8,10 @@ exports.config = {
   ],
 
   capabilities: {
-    'browserName': 'firefox'
+    'browserName': 'chrome'
   },
 
-  baseUrl: 'http://localhost:3000/',
+  baseUrl: 'http://localhost:9000/',
 
   rootElement: 'div',
 

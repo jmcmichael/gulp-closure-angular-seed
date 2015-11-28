@@ -6,7 +6,6 @@
 describe('first', function() {
 
   var first = require('./first.pageobject.js');
-
   beforeEach(function() {
     first.navigate();
   });

@@ -38,7 +38,7 @@ gulp.task('test:unit:dist', ['build'], function(done) {
   }, done).start();
 });
 
-gulp.task('test:unit:prep', ['dev:prep:app-deps', ''], function() {
+gulp.task('test:unit:prep', ['dev:prep:app-deps'], function() {
   var googBase = gulp.src([conf.dirs.app + '/goog/base.js'], {base: 'goog/', read: false});
   var appDeps = gulp.src([conf.dirs.app + '/app-deps.js'], {read: false});
   //var appFiles = gulp.src([conf.scripts.dev], {read: false});
