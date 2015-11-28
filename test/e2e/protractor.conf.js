@@ -13,6 +13,8 @@ exports.config = {
 
   baseUrl: 'http://localhost:3000/',
 
+  rootElement: 'div',
+
   framework: 'jasmine',
 
   onPrepare: function() {
