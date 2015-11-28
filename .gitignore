@@ -6,3 +6,4 @@ bower_components/
 dist/*
 app/goog
 compiler.jar
+test/sauce.json

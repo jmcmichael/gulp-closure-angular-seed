@@ -2,7 +2,22 @@
  * karma remote configuration function
  */
 'use strict';
+var fs = require('fs');
+
 module.exports = function(config) {
+
+  // Use ENV vars on Travis and sauce.json locally to get credentials
+  if (!process.env.SAUCE_USERNAME) {
+    if (!fs.existsSync('test/sauce.json')) {
+      console.log('Create a test/sauce.json with your credentials based ' +
+        'on the test/sauce.tpl.json file.');
+      process.exit(1);
+    } else {
+      process.env.SAUCE_USERNAME = require('./sauce').username;
+      process.env.SAUCE_ACCESS_KEY = require('./sauce').accessKey;
+    }
+  }
+
   var customLaunchers = {
     sl_chrome: {
       base: 'SauceLabs',
@@ -18,8 +33,14 @@ module.exports = function(config) {
     sl_ios_safari: {
       base: 'SauceLabs',
       browserName: 'iphone',
-      platform: 'OS X 10.9',
-      version: '7.1'
+      platform: 'OS X 10.10',
+      version: '9.1'
+    },
+    sl_osx_safari: {
+      base: 'SauceLabs',
+      browserName: 'safari',
+      platform: 'OS X 10.10',
+      version: '8.0'
     },
     sl_ie_11: {
       base: 'SauceLabs',
@@ -93,12 +114,17 @@ module.exports = function(config) {
     browsers: Object.keys(customLaunchers),
     customLaunchers: customLaunchers,
     reporters: ['spec', 'saucelabs'],
+    sauceLabs: {
+      testName: 'Karma and Sauce Labs demo'
+    },
+    captureTimeout: 120000,
     specReporter: {
       maxLogLines: 5,         // limit number of lines logged per test
       suppressErrorSummary: true,  // do not print error summary
       suppressFailed: false,  // do not print information about failed tests
       suppressPassed: false,  // do not print information about passed tests
       suppressSkipped: true  // do not print information about skipped tests
-    }
+    },
+    logLevel: config.LOG_INFO // DISABLE, ERROR, WARN, INFO (default), DEBUG
   });
 };

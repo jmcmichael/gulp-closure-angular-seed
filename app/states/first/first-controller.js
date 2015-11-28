@@ -14,6 +14,11 @@ my.first.Ctrl = function() {
    * @export
    */
   this.animals = ['dog', 'cat', 'mouse'];
-  this.hello = "hello";
+
+  /**
+   * @type {String}
+   * @export
+   */
+  this.hello = 'hello';
 
 };

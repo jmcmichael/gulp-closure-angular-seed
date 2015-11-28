@@ -28,16 +28,14 @@ gulp.task('test:unit', ['dev:prep:app-deps', 'prep:copylibs'], function(done) {
 gulp.task('test:unit:remote', ['dev:prep:app-deps', 'prep:copylibs'], function(done) {
   new unitServer({
     configFile: root + '/test/unit/karma-remote.conf.js',
-    singleRun: true,
-    logLevel: 'LOG_ERROR' // DISABLE, ERROR, WARN, INFO (default), DEBUG
+    singleRun: true
   }, done).start();
 });
 
 gulp.task('test:unit:dist', ['build'], function(done) {
   new unitServer({
     configFile: root + '/test/unit/karma-build.conf.js',
-    singleRun: true,
-    logLevel: 'LOG_ERROR' // DISABLE, ERROR, WARN, INFO (default), DEBUG
+    singleRun: true
   }, done).start();
 });
 
