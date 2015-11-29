@@ -15,6 +15,8 @@ Based on [zemirco's nghellostyle seed project](https://github.com/zemirco/nghell
 - provides a couple tasks to test uncompiled and compiled code on Sauce Labs' remote multi-client Selenium grid
 
 Roadmap:
+- use npm's scripts API for launching tasks
+- provide postpublish script to run setup gulp tasks (prep:goog, prep:copydeps)
 - use OnsenUI for start-app UI components
 - move more closure functionality into the gulp-plovrator plugin
 - implement as a Yeoman generator
