@@ -1,28 +1,24 @@
 {
-  "name": "nghellostyle",
+  "name": "gulp-closure-angular-seed",
   "version": "0.0.1",
-  "description": "AngularJS seed for Google Closure Compiler",
-  "main": "Gruntfile.js",
+  "description": "",
+  "main": "gulpfile.js",
   "scripts": {
-    "test": "(grunt connect > /dev/null &) && (grunt karma) && (grunt protractor)",
+    "test": "gulp test",
     "env": "env"
   },
   "author": {
-    "name": "Mirco Zeiss",
-    "email": "mirco.zeiss@gmail.com",
-    "twitter": "zeMirco"
+    "name": "Joshua McMichael",
+    "email": "josh@jmcmichael.com",
+    "twitter": "jmcmichael"
   },
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/zeMirco/nghellostyle"
-  },
   "devDependencies": {
     "app-root-path": "^1.0.0",
     "bower": "^1.6.5",
     "browser-sync": "^2.9.11",
     "chai": "^3.4.1",
-    "closure-library": "git+https://github.com/google/closure-library",
+    "closure-library": "git+https://github.com/google/closure-library#master",
     "closurecompiler": "^1.5.2",
     "del": "^2.0.2",
     "event-stream": "^3.3.2",
@@ -42,6 +38,7 @@
     "gulp-inject": "^3.0.0",
     "gulp-insert": "^0.5.0",
     "gulp-order": "^1.1.1",
+    "gulp-plovrator": "git+https://github.com/jmcmichael/gulp-plovrator.git#master",
     "gulp-rename": "^1.2.2",
     "gulp-rev": "^6.0.1",
     "gulp-sass": "^2.1.0",
