@@ -7,13 +7,13 @@ Based on [zemirco's nghellostyle seed project](https://github.com/zemirco/nghell
 
 *Updates:*
 
-- switches task runner from Grunt to Gulp
+- switched task runner from Grunt to Gulp
 - defaults to serving uncompiled Javascript for easier development
 - adds a Stylus CSS compiler to the workflow
 - serves bower dependencies locally for dev, injects CDN links for compiled app
 - unit and integration tests function both on uncompiled and compiled source
 - uses Google's latest closure-library
-- provides a couple tasks to test uncompiled and compiled code on Sauce Labs' remote multi-client Selenium grid
+- provides tasks to test uncompiled and compiled code on Sauce Labs' remote multi-client Selenium grid
 
 Roadmap:
 - implement watchers for serve tasks
@@ -22,7 +22,8 @@ Roadmap:
 - use OnsenUI for start-app UI components
 - move more closure functionality into the gulp-plovrator plugin
 - implement as a Yeoman generator
-- provide generators for states and components
+-- provide bootstrap 3 and onsenui installation options
+-- create generators for states, services, and components
 
 ##### INSTALLATION
 ```
