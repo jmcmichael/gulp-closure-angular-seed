@@ -1,30 +1,19 @@
 
-# A radical new approach to developing AngularJS apps
+# gulp-closure-angular-seed
 
-[![Build Status](https://travis-ci.org/zemirco/nghellostyle.svg?branch=master)](https://travis-ci.org/zemirco/nghellostyle)
+A seed project that produces a simple ui-router based AngularJS application using the Google Closure Compiler & Library, coordinated using a set of gulp tasks with Karma/Jasmine unit and Protractor integration tests, and Sauce Labs integration for remote continuous integration.
 
-An AngularJS seed for Google Closure Compiler.
+Based on [zemirco's nghellostyle seed project](https://github.com/zemirco/nghellostyle) and [article](http://www.mircozeiss.com/a-radical-new-approach-to-developing-angularjs-apps/).
 
-## Concept
+*Updates:*
 
-This is not a 'one size fits all' solution.
-There is no CoffeeScript/etc. compiler or CSS preprocessor involved.
-That's up to you.
-It's already complicated enough without them :)
+- switches task runner from Grunt to Gulp
+- defaults to serving uncompiled Javascript for easier development
+- adds a Stylus CSS compiler to the workflow
+- unit and integration tests function both on uncompiled and compiled source
+- uses Google's latest closure-library
 
-What you get is a clean and scalable project structure for your AngularJS apps.
-
-#### Google Closure Compiler
-
-Most of you might use [uglifyjs](https://github.com/mishoo/UglifyJS2) for minification.
-At least that's what I did for a long time and there is nothing wrong with it.
-It is an awesome tool.
-
-However Closure Compiler can do more than that.
-
-1. Minify code knowing about AngularJS
-2. Inject dependencies automatically
-3. Create namespaces
+*WARNING*: The documentation below, unedited from the original nghellostyle docs, is defintely incomplete and may be inaccurate. This project is under heavy development, use at your own risk!
 
 ##### --angular-pass
 
