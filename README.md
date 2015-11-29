@@ -14,7 +14,13 @@ Based on [zemirco's nghellostyle seed project](https://github.com/zemirco/nghell
 - uses Google's latest closure-library
 - provides a couple tasks to test uncompiled and compiled code on Sauce Labs' remote multi-client Selenium grid
 
-*WARNING*: The documentation below, unedited from the original nghellostyle docs, is defintely incomplete and may be inaccurate. This project is under heavy development, use at your own risk!
+Roadmap:
+- use OnsenUI for start-app UI components
+- move more closure functionality into the gulp-plovrator plugin
+- implement as a Yeoman generator
+- provide generators for states and components
+
+*WARNING*: The documentation below, unedited from the original nghellostyle docs, is defintely incomplete and may be inaccurate. This project is under heavy development, and unsupported - use at your own risk!
 
 ##### --angular-pass
 
