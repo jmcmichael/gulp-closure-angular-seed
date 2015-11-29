@@ -22,7 +22,7 @@ Roadmap:
 - implement as a Yeoman generator
 - provide generators for states and components
 
-*WARNING*: The documentation below, unedited from the original nghellostyle docs, is defintely incomplete and may be inaccurate. This project is under heavy development, and unsupported - use at your own risk!
+*WARNING*: The documentation below, unedited from the original nghellostyle docs, is defintely incomplete and inaccurate (e.g. gulp, not grunt is now used as the build tool). This project is under heavy development, and unsupported - use at your own risk!
 
 ##### --angular-pass
 
@@ -712,6 +712,3 @@ creates `app.min.js` in `app/js/`.
 
 MIT
 
-## Plea
-
-@google why you not making your `nghellostyle` public?
