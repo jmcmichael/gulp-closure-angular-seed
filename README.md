@@ -15,6 +15,7 @@ Based on [zemirco's nghellostyle seed project](https://github.com/zemirco/nghell
 - provides a couple tasks to test uncompiled and compiled code on Sauce Labs' remote multi-client Selenium grid
 
 Roadmap:
+- implement watchers for serve tasks
 - use npm's scripts API for launching tasks
 - provide postpublish script to run setup gulp tasks (prep:goog, prep:copydeps)
 - use OnsenUI for start-app UI components
@@ -23,6 +24,53 @@ Roadmap:
 - provide generators for states and components
 
 *WARNING*: The documentation below, unedited from the original nghellostyle docs, is defintely incomplete and inaccurate (e.g. gulp, not grunt is now used as the build tool). This project is under heavy development, and unsupported - use at your own risk!
+
+##### INSTALLATION
+```
+npm install && bower install
+```
+
+##### GULP TASKS
+
+Serve uncompiled app
+```
+gulp serve
+```
+
+Serve compiled app
+```
+gulp serve:dist
+```
+
+Run unit tests on uncompiled code
+```
+gulp test:unit
+```
+
+Run e2e tests on uncompiled code
+```
+gulp test:e2e
+```
+
+Run unit tests on compiled code
+```
+gulp test:dist
+```
+
+Run e2e tests on uncompiled code
+```
+gulp test:e2e
+```
+
+Run unit tests on Sauce Labs infrastructure
+```
+gulp test:unit:ci
+```
+
+Run e2e tests on Sauce Labs infrastructure
+```
+gulp test:e2e:ci
+```
 
 ##### --angular-pass
 
