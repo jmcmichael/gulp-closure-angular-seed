@@ -1,5 +1,5 @@
-/** test/unit/karma-remote.conf.js
- * Karma remote testing configuration function
+/** test/unit/karma-build-remote.conf.js
+ * Karma remote configuration function of compiled app
  */
 'use strict';
 var fs = require('fs');
@@ -19,29 +19,29 @@ module.exports = function(config) {
   }
 
   var customLaunchers = {
-    sl_chrome: {
-      base: 'SauceLabs',
-      browserName: 'chrome',
-      platform: 'Windows 7',
-      version: '35'
-    },
-    sl_firefox: {
-      base: 'SauceLabs',
-      browserName: 'firefox',
-      version: '30'
-    },
+    //sl_chrome: {
+    //  base: 'SauceLabs',
+    //  browserName: 'chrome',
+    //  platform: 'Windows 7',
+    //  version: '35'
+    //},
+    //sl_firefox: {
+    //  base: 'SauceLabs',
+    //  browserName: 'firefox',
+    //  version: '30'
+    //},
     sl_ios_safari: {
       base: 'SauceLabs',
       browserName: 'iphone',
       platform: 'OS X 10.10',
       version: '9.1'
     },
-    sl_osx_safari: {
-      base: 'SauceLabs',
-      browserName: 'safari',
-      platform: 'OS X 10.10',
-      version: '8.0'
-    },
+    //sl_osx_safari: {
+    //  base: 'SauceLabs',
+    //  browserName: 'safari',
+    //  platform: 'OS X 10.10',
+    //  version: '8.0'
+    //},
     sl_ie_11: {
       base: 'SauceLabs',
       browserName: 'internet explorer',
@@ -64,20 +64,8 @@ module.exports = function(config) {
       {pattern: 'bower_components/bind-polyfill/index.js',
         watched: false, included: true, served: true},
 
-      // closure base and libs
-      {pattern: 'app/goog/base.js', watched: false, included: true, served: true},
-      {pattern: 'app/goog/**/*.js', watched: false, included: false, served: true },
-
       // app
-      {pattern: 'app/app-deps.js', watched: true, included: true, served: true},
-      {pattern: 'app/js/app.js', watched: true, included: true, served: true},
-
-      // templates placeholder
-      {pattern: 'app/js/templates.js', watched: true, included: false, served: true},
-
-      // states & components
-      {pattern: 'app/states/**/*.js', watched: true, included: false, served: true },
-      {pattern: 'app/components/**/*.js', watched: true, included: false, served: true },
+      {pattern: 'dist/app/js/app.min-*.js', watched: true, included: true, served: true},
 
       // app unit tests
       {pattern: 'app/**/*.spec.js', watched: true, included: true, served: true}
@@ -89,16 +77,8 @@ module.exports = function(config) {
       'app/**/*.scenario.js'
     ],
     preprocessors: {
-      // source files are preprocessed for dependencies
-      'app/js/**/*.js': ['closure'],
-      'app/states/**/*.js': ['closure'],
-      'app/components/**/*.js': ['closure'],
-
-      // external deps
-      'app/goog/closure/**/*.js': ['closure-deps'],
-
       // bootstrap angular
-      'app/index.html': ['ngbootstrapfix'],
+      'dist/app/index.html': ['ngbootstrapfix'],
 
       // tests are preprocessed for dependencies (closure) and for it/describe (closure-iit)
       'app/**/*.spec.js': ['closure', 'closure-iit']

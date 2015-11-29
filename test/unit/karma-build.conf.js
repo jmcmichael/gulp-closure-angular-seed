@@ -1,8 +1,7 @@
-'use strict';
-
-/**
- * karma configuration function
+/** test/unit/karma-build.conf.js
+ * Karma configuration function for testing compiled app
  */
+'use strict';
 module.exports = function(config) {
   config.set({
     basePath: '../../',
@@ -32,7 +31,7 @@ module.exports = function(config) {
     ],
     preprocessors: {
       // bootstrap angular
-      'dist/appindex.html': ['ngbootstrapfix'],
+      'dist/app/index.html': ['ngbootstrapfix'],
 
       // tests are preprocessed for dependencies (closure) and for it/describe (closure-iit)
       'app/**/*.spec.js': ['closure', 'closure-iit']

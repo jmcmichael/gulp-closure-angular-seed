@@ -16,7 +16,7 @@ exports.config = {
   rootElement: 'div',
 
   framework: 'jasmine',
-
+  jasmineNodeOpts: {isVerbose: true},
   onPrepare: function() {
       require('jasmine-spec-reporter');
       jasmine.getEnv().addReporter(new jasmine.SpecReporter());

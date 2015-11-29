@@ -24,9 +24,9 @@ gulp.task('test:unit', ['dev:prep:app-deps', 'prep:copylibs'], function(done) {
   }, done).start();
 });
 
-gulp.task('test:unit:remote', ['dev:prep:app-deps', 'prep:copylibs'], function(done) {
+gulp.task('test:unit:ci', ['dev:prep:app-deps', 'prep:copylibs'], function(done) {
   new unitServer({
-    configFile: root + '/test/unit/karma-remote.conf.js',
+    configFile: root + '/test/unit/karma-ci.conf.js',
     singleRun: true
   }, done).start();
 });
@@ -34,6 +34,13 @@ gulp.task('test:unit:remote', ['dev:prep:app-deps', 'prep:copylibs'], function(d
 gulp.task('test:unit:dist', ['build'], function(done) {
   new unitServer({
     configFile: root + '/test/unit/karma-build.conf.js',
+    singleRun: true
+  }, done).start();
+});
+
+gulp.task('test:unit:dist:ci', ['build'], function(done) {
+  new unitServer({
+    configFile: root + '/test/unit/karma-build-ci.conf.js',
     singleRun: true
   }, done).start();
 });
