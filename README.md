@@ -59,7 +59,7 @@ gulp test:dist
 
 Run e2e tests on uncompiled code
 ```
-gulp test:e2e
+gulp test:dist:e2e
 ```
 
 Run unit tests on Sauce Labs infrastructure
