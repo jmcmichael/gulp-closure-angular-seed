@@ -23,8 +23,6 @@ Roadmap:
 - implement as a Yeoman generator
 - provide generators for states and components
 
-*WARNING*: The documentation below, unedited from the original nghellostyle docs, is defintely incomplete and inaccurate (e.g. gulp, not grunt is now used as the build tool). This project is under heavy development, and unsupported - use at your own risk!
-
 ##### INSTALLATION
 ```
 npm install && bower install
@@ -71,6 +69,10 @@ Run e2e tests on Sauce Labs infrastructure
 ```
 gulp test:e2e:ci
 ```
+
+##### Compiler Options
+
+*WARNING*: The options documentation below, unedited from the original nghellostyle docs, is defintely incomplete and inaccurate (e.g. gulp, not grunt is now used as the build tool). This project is under heavy development, and unsupported - use at your own risk!
 
 ##### --angular-pass
 
