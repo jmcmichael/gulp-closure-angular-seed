@@ -12,6 +12,7 @@ Based on [zemirco's nghellostyle seed project](https://github.com/zemirco/nghell
 - adds a Stylus CSS compiler to the workflow
 - unit and integration tests function both on uncompiled and compiled source
 - uses Google's latest closure-library
+- provides a couple tasks to test uncompiled and compiled code on Sauce Labs' remote multi-client Selenium grid
 
 *WARNING*: The documentation below, unedited from the original nghellostyle docs, is defintely incomplete and may be inaccurate. This project is under heavy development, use at your own risk!
 
