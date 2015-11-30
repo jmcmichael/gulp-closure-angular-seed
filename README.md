@@ -19,7 +19,7 @@ Roadmap:
 - implement watchers for serve tasks
 - use npm's scripts API for launching tasks
 - provide postpublish script to run setup gulp tasks (prep:goog, prep:copydeps)
-- use OnsenUI for start-app UI components
+- use Material Design for Angular components to layout sample app
 - move more closure functionality into the gulp-plovrator plugin
 - implement as a Yeoman generator
 -- provide bootstrap 3 and onsenui installation options
