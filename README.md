@@ -7,22 +7,74 @@ Based on [zemirco's nghellostyle seed project](https://github.com/zemirco/nghell
 
 *Updates:*
 
-- switches task runner from Grunt to Gulp
+- switched task runner from Grunt to Gulp
 - defaults to serving uncompiled Javascript for easier development
 - adds a Stylus CSS compiler to the workflow
+- serves bower dependencies locally for dev, injects CDN links for compiled app
 - unit and integration tests function both on uncompiled and compiled source
 - uses Google's latest closure-library
-- provides a couple tasks to test uncompiled and compiled code on Sauce Labs' remote multi-client Selenium grid
+- provides tasks to test uncompiled and compiled code on Sauce Labs' remote multi-client Selenium grid
 
 Roadmap:
+- implement watchers for serve tasks
 - use npm's scripts API for launching tasks
 - provide postpublish script to run setup gulp tasks (prep:goog, prep:copydeps)
 - use OnsenUI for start-app UI components
 - move more closure functionality into the gulp-plovrator plugin
 - implement as a Yeoman generator
-- provide generators for states and components
+-- provide bootstrap 3 and onsenui installation options
+-- create generators for states, services, and components
 
-*WARNING*: The documentation below, unedited from the original nghellostyle docs, is defintely incomplete and inaccurate (e.g. gulp, not grunt is now used as the build tool). This project is under heavy development, and unsupported - use at your own risk!
+##### INSTALLATION
+```
+npm install && bower install
+```
+
+##### GULP TASKS
+
+Serve uncompiled app
+```
+gulp serve
+```
+
+Serve compiled app
+```
+gulp serve:dist
+```
+
+Run unit tests on uncompiled code
+```
+gulp test:unit
+```
+
+Run e2e tests on uncompiled code
+```
+gulp test:e2e
+```
+
+Run unit tests on compiled code
+```
+gulp test:dist
+```
+
+Run e2e tests on uncompiled code
+```
+gulp test:dist:e2e
+```
+
+Run unit tests on Sauce Labs infrastructure
+```
+gulp test:unit:ci
+```
+
+Run e2e tests on Sauce Labs infrastructure
+```
+gulp test:e2e:ci
+```
+
+##### Compiler Options
+
+*WARNING*: The options documentation below, unedited from the original nghellostyle docs, is defintely incomplete and inaccurate (e.g. gulp, not grunt is now used as the build tool). This project is under heavy development, and unsupported - use at your own risk!
 
 ##### --angular-pass
 
