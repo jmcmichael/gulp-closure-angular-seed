@@ -53,16 +53,15 @@ module.exports = function(config) {
   config.set({
     basePath: '../../',
     files: [
-      // TODO: use gulp-inject to generate bower deps
-      // bower dependencies
-      {pattern: 'bower_components/angular/angular.js',
-        watched: false, included: true, served: true},
-      {pattern: 'bower_components/angular-ui-router/release/angular-ui-router.js',
-        watched: false, included: true, served: true},
-      {pattern: 'bower_components/angular-mocks/angular-mocks.js',
-        watched: false, included: true, served: true},
-      {pattern: 'bower_components/bind-polyfill/index.js',
-        watched: false, included: true, served: true},
+      // WARNING: karma file config objects auto-generated, do not edit or
+      // remove bower/endbower placeholders!
+
+      // bower:js
+      {pattern: 'bower_components/angular/angular.js', watched: false, included: true, served: true},
+      {pattern: 'bower_components/angular-ui-router/release/angular-ui-router.js', watched: false, included: true, served: true},
+      {pattern: 'bower_components/angular-mocks/angular-mocks.js', watched: false, included: true, served: true},
+      {pattern: 'bower_components/bind-polyfill/index.js', watched: false, included: true, served: true},
+      // endbower
 
       // app
       {pattern: 'dist/app/js/app.min-*.js', watched: true, included: true, served: true},

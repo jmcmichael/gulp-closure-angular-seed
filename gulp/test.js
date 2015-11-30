@@ -7,6 +7,7 @@ var gulp = require('gulp'),
   conf = require('./_conf.js').conf,
   path = require('path'),
   debug = require('gulp-debug'),
+  wiredep = require('wiredep').stream,
   inject = require('gulp-inject'),
   order = require('gulp-order'),
   es = require('event-stream'),
@@ -60,15 +61,26 @@ gulp.task('test:unit:prep', ['dev:prep:app-deps'], function() {
     ]))
     .pipe(debug({title: 'test:unit:prep allDeps'}));
 
-  return gulp.src(root + '/test/unit/karma.conf.js')
-    .pipe(inject(allDeps), {
-      starttag: '/* inject:files */ files: [',
-      endtag: ']',
-      transform: function(filepath, file, i, length) {
-        console.log('injecting ' + file);
-        return '  "' + filepath + '"' + (i + 1 < length ? ',' : '');
+  return gulp.src(root + '/test/unit/karma*.conf.js')
+    .pipe(wiredep({
+      directory: 'bower_components',
+      devDependencies: true,
+      exclude: [],
+      ignorePath: '../../',
+      fileTypes: {
+        js: {
+          block: /(([ \t]*)\/\/\s*bower:*(\S*))(\n|\r|.)*?(\/\/\s*endbower)/gi,
+          detect: {
+            js: /'(.*\.js)'/gi
+            //js: /['\']([^'\']+\.js)['\'],?/gi
+          },
+          replace: {
+            js: '{pattern: "{{filePath}}", watched: false, included: true, served: true},'
+            //js: '"{{filePath}}",'
+          }
+        }        
       }
-    })
+    }))
     .pipe(gulp.dest(root + '/test/unit'));
 });
 
