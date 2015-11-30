@@ -1,7 +1,7 @@
 
 # gulp-closure-angular-seed
 
-A seed project that produces a simple ui-router based AngularJS application using the Google Closure Compiler & Library, coordinated using a set of gulp tasks with Karma/Jasmine unit and Protractor integration tests, and Sauce Labs integration for remote continuous integration.
+A seed project that produces a simple ui-router based AngularJS application using the Google Closure Compiler & Library, coordinated using a set of gulp tasks with Karma/Jasmine unit and Protractor integration tests, and Sauce Labs for remote continuous integration tests.
 
 Based on [zemirco's nghellostyle seed project](https://github.com/zemirco/nghellostyle) and [article](http://www.mircozeiss.com/a-radical-new-approach-to-developing-angularjs-apps/).
 
