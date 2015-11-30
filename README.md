@@ -57,17 +57,17 @@ Run unit tests on compiled code
 gulp test:dist
 ```
 
-Run e2e tests on uncompiled code
+Run e2e tests on compiled code
 ```
 gulp test:dist:e2e
 ```
 
-Run unit tests on Sauce Labs infrastructure
+Run unit tests on uncompiled code using Sauce Labs cloud testing service
 ```
 gulp test:unit:ci
 ```
 
-Run e2e tests on Sauce Labs infrastructure
+Run e2e tests on uncompiled code using Sauce Labs cloud testing service
 ```
 gulp test:e2e:ci
 ```
