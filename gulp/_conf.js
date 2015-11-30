@@ -38,7 +38,7 @@ module.exports.conf = {
     'app/goog/deps.js'
   ],
   externs: [
-    'app/externs/*.js'
+    'app/externs/**/*.js'
   ],
   styles: [
     'app/**/*.styl'
