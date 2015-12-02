@@ -1,7 +1,7 @@
 
 # gulp-closure-angular-seed
 
-A seed project that produces a simple ui-router based AngularJS application using the Google Closure Compiler & Library, coordinated using a set of gulp tasks with Karma/Jasmine unit and Protractor integration tests, and Sauce Labs integration for remote continuous integration.
+A seed project that produces a simple ui-router based AngularJS application using the Google Closure Compiler & Library, coordinated using a set of gulp tasks with Karma/Jasmine unit and Protractor integration tests, and Sauce Labs for remote continuous integration tests.
 
 Based on [zemirco's nghellostyle seed project](https://github.com/zemirco/nghellostyle) and [article](http://www.mircozeiss.com/a-radical-new-approach-to-developing-angularjs-apps/).
 
@@ -19,7 +19,7 @@ Roadmap:
 - implement watchers for serve tasks
 - use npm's scripts API for launching tasks
 - provide postpublish script to run setup gulp tasks (prep:goog, prep:copydeps)
-- use OnsenUI for start-app UI components
+- use Material Design for Angular components to layout sample app
 - move more closure functionality into the gulp-plovrator plugin
 - implement as a Yeoman generator
 -- provide bootstrap 3 and onsenui installation options
@@ -57,17 +57,17 @@ Run unit tests on compiled code
 gulp test:dist
 ```
 
-Run e2e tests on uncompiled code
+Run e2e tests on compiled code
 ```
 gulp test:dist:e2e
 ```
 
-Run unit tests on Sauce Labs infrastructure
+Run unit tests on uncompiled code using Sauce Labs cloud testing service
 ```
 gulp test:unit:ci
 ```
 
-Run e2e tests on Sauce Labs infrastructure
+Run e2e tests on uncompiled code using Sauce Labs cloud testing service
 ```
 gulp test:e2e:ci
 ```
