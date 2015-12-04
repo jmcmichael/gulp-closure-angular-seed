@@ -92,6 +92,30 @@ gulp.task('dev:prep:app-deps', function(done) {
   });
 });
 
+gulp.task('dev:prep:app-modules', function(done) {
+  var googBase = gulp.src([conf.dirs.app + '/goog/base.js'], {base: 'goog/'});
+  var devFiles = gulp.src(conf.scripts.dev);
+  temp.mkdir('closure-compiler-temp', function(err, tmpPath) {
+    if (err) {
+      done(err, 'Error creating temp directory.');
+    }
+    var depsPath = tmpPath + '/' + conf.depsWriter.fileName;
+    var command = conf.depsWriter.exec +
+      ' --root_with_prefix="' + conf.dirs.app + '/ ../"' +
+      ' --output_file="' + tmpPath + '/app-deps.js"';
+    exec(command, function(error, stdout, stderr) {
+      if (error) {
+        gutil.log('stderr: ' + error);
+      } else {
+        gutil.log('Wrote app-deps.js to ' + conf.dirs.app);
+      }
+      gulp.src(depsPath)
+        .pipe(gulp.dest(conf.dirs.app));
+      done();
+    });
+  });
+});
+
 // compile styl to css, copy to .tmp
 gulp.task('dev:styles', function(cb) {
   return gulp.src(conf.styles)
@@ -101,6 +125,3 @@ gulp.task('dev:styles', function(cb) {
     .pipe(gulp.dest(conf.dirs.temp));
 });
 
-gulp.task('dev:calcdeps', function(cb) {
-
-});

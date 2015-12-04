@@ -53,6 +53,24 @@ module.exports.conf = {
     app: root + '/app'
   },
   index: root + '/app/index.html',
+  calcDeps: {
+    exec: root + '/node_modules/google-closure-library/closure/bin/calcdeps.py',
+    fileName: 'app-deps.js',
+    roots: [
+      {
+        root: 'app',
+        prefix: 'app/'
+      },
+      {
+        root: 'states',
+        prefix: 'states/'
+      },
+      {
+        root: 'components',
+        prefix: 'components/'
+      }
+    ]
+  },
   depsWriter: {
     exec: root + '/node_modules/google-closure-library/closure/bin/build/depswriter.py',
     fileName: 'app-deps.js',
