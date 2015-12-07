@@ -26,6 +26,16 @@ gulp.task('prep:copylibs', function() {
     .pipe(gulp.dest(conf.dirs.dist + '/app/lib'));
 });
 
+// copy onsen deps not included by main-bower-files
+gulp.task('prep:copylibs:onsen', function() {
+  return gulp.src([
+    'bower_components/onsenui/build/css/**/*',
+    '!**/onsenui.css',
+    '!**/onsen-css-components.css'
+  ], { base: 'bower_components' })
+    .pipe(gulp.dest(conf.dirs.dist + '/app/lib'));
+});
+
 gulp.task('default', ['clean'], function () {
   gulp.start('build');
 });

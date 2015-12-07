@@ -82,7 +82,8 @@ gulp.task('build', function(cb) {
     [
       'build:scripts',
       'build:styles',
-      'prep:copylibs'
+      'prep:copylibs',
+      'prep:copylibs:onsen'
     ],
     'build:inject',
     cb);
@@ -96,7 +97,8 @@ gulp.task('build:debug', function(cb) {
       'build:debug:scripts',
       'build:templates',
       'build:styles',
-      'prep:copylibs'
+      'prep:copylibs',
+      'prep:copylibs:onsen'
     ],
     'build:inject',
     cb);
