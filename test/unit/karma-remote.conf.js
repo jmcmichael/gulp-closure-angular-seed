@@ -53,8 +53,8 @@ module.exports = function(config) {
   config.set({
     basePath: '../../',
     files: [
-      // WARNING: karma file config objects auto-generated, do not edit or
-      // remove bower/endbower placeholders!
+      // WARNING: karma file config objects auto-generated, do not remove
+      // bower/endbower placeholders!
 
       // bower:js
       {pattern: 'bower_components/angular/angular.js', watched: false, included: true, served: true},

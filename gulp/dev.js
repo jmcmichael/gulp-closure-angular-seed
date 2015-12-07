@@ -32,8 +32,6 @@ gulp.task('dev:inject', function(cb) {
   var googBase = gulp.src([conf.dirs.app + '/goog/base.js'], {base: 'goog/'});
   var appDeps = gulp.src([conf.dirs.app + '/app-deps.js']);
   var cssDeps = gulp.src([conf.dirs.temp + '/**/*.css']).pipe(debug({title: 'cssDeps:'}));
-  //var appFiles = gulp.src(conf.scripts.dev, { read: true })
-  //  .pipe(filesort());
   var appFiles = gulp.src([conf.dirs.app + '/js/app.js']);
 
   //var allDeps = es.merge(googBase, appDeps)
@@ -49,6 +47,7 @@ gulp.task('dev:inject', function(cb) {
     .pipe(wiredep({
       directory: 'bower_components',
       exclude: [],
+      verbose: true,
       ignorePath: '../',
       fileTypes: {
         html: {
