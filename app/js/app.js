@@ -30,10 +30,9 @@ angular.element(document).ready(function() {
    *
    * @param {ui.router.$stateProvider} $stateProvider
    * @param {ui.router.$urlRouterProvider} $urlRouterProvider
-   * @ngInject
    */
+  // @ngInject
   function config($stateProvider, $urlRouterProvider) {
-
     $urlRouterProvider.otherwise('/first');
 
     var arr = [0, 1, 2, 3, 4, 5];
