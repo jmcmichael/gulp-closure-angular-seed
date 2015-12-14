@@ -36,6 +36,10 @@ angular.element(document).ready(function() {
 
     $urlRouterProvider.otherwise('/first');
 
+    var arr = [0,1,2,3,4,5];
+
+    arr.map((n) => { console.log('n: ' + n)});
+
   }
 
   angular.bootstrap(document, ['app']);
