@@ -1,0 +1,5 @@
+{
+  "preset": "google",
+  "excludeFiles": ["bower_components/**/*"],
+  "esnext": true
+}
