@@ -15,7 +15,7 @@ var gulp = require('gulp'),
   root = require('app-root-path'),
   server = require('browser-sync');
 
-gulp.task('serve', ['serve:dev'])
+gulp.task('serve', ['serve:dev']);
 
 gulp.task('serve:dev', ['serve:dev:prep'], function(done) {
   server({
