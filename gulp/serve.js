@@ -67,3 +67,28 @@ gulp.task('serve:dist', ['build'], function(done) {
   done();
 });
 
+gulp.task('serve:dist:debug', ['build:debug'], function(done) {
+  server.init({
+    server: {
+      baseDir: 'dist/app',
+      index: 'index.html'
+    }
+  });
+
+  //gulp.watch(conf.lib, ['clean:dist:lib', 'build:copydep', 'build:inject'])
+  //  .on('change', server.reload);
+
+  //gulp.watch(conf.index, ['build:inject'])
+  //  .on('change', server.reload);
+  //
+  //gulp.watch(conf.styles, ['clean:dist:styles', 'build:styles', 'build:inject'])
+  //  .on('change', server.reload);
+  //
+  //gulp.watch(conf.templates, ['clean:dist:js', 'build:templates', 'build:inject'])
+  //  .on('change', server.reload);
+  //
+  //gulp.watch(conf.scripts.build, ['clean:dist:js', 'build:prep', 'build:inject'])
+  //  .on('change', server.reload);
+
+  done();
+});
