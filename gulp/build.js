@@ -122,9 +122,10 @@ gulp.task('build:scripts', function() {
 
 // debug script compile, toggles closure's debug mode and pretty-print
 gulp.task('build:debug:scripts', function() {
-  var scripts = conf.goog.concat(conf.scripts.build);
+  var googSrc = gulp.src(conf.goog);
+  var appSrc= gulp.src(conf.scripts.build);
 
-  return gulp.src(scripts)
+  return es.merge(googSrc, appSrc)
     .pipe(debug({title: 'build:debug:scripts - pre compile'}))
     .pipe(compiler(closureConf.debug))
     .pipe(debug({title: 'build:debug:scripts - post compile'}))
