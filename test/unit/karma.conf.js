@@ -7,9 +7,17 @@ module.exports = function(config) {
   config.set({
     basePath: '../../',
     files: [
-      // WARNING: karma file config objects auto-generated, do not edit or
-      // remove bower/endbower placeholders!
 
+      // babel shim
+      {
+        pattern: 'node_modules/babel-polyfill/dist/polyfill.js',
+        watched: false,
+        included: true,
+        served: true
+      },
+
+      // NOTE: the following bower deps are auto-generated, do not edit or
+      // remove bower/endbower placeholders!
       // bower:js
       {pattern: 'bower_components/angular/angular.js', watched: false, included: true, served: true},
       {pattern: 'bower_components/angular-ui-router/release/angular-ui-router.js', watched: false, included: true, served: true},
@@ -43,9 +51,9 @@ module.exports = function(config) {
     ],
     preprocessors: {
       // source files are preprocessed for dependencies
-      'app/js/**/*.js': ['closure'],
-      'app/states/**/*.js': ['closure'],
-      'app/components/**/*.js': ['closure'],
+      'app/js/**/*.js': ['closure', 'babel'],
+      'app/states/**/*.js': ['closure', 'babel'],
+      'app/components/**/*.js': ['closure', 'babel'],
 
       // external deps
       'app/goog/closure/**/*.js': ['closure-deps'],
@@ -54,12 +62,13 @@ module.exports = function(config) {
       'app/index.html': ['ngbootstrapfix'],
 
       // tests are preprocessed for dependencies (closure) and for it/describe (closure-iit)
-      'app/**/*.spec.js': ['closure', 'closure-iit']
+      'app/**/*.spec.js': ['closure', 'closure-iit', 'babel']
     },
     plugins: [
       'karma-jasmine',
       'karma-spec-reporter',
       'karma-closure',
+      'karma-babel-preprocessor',
       'karma-phantomjs-launcher',
       'karma-chrome-launcher',
       'karma-firefox-launcher',
@@ -81,7 +90,12 @@ module.exports = function(config) {
         debug: false // toggle true, and PhantomJS_custom starts a debug browser
       }
     },
-
+    babelPreprocessor: {
+      options: {
+        presets: ['es2015'],
+        sourceMap: 'inline'
+      }
+    },
     reporters: ['spec'],
     specReporter: {
       maxLogLines: 5,         // limit number of lines logged per test
