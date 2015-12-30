@@ -37,6 +37,8 @@ var closureConf = {
     compilerFlags: {
       closure_entry_point: 'app',
       debug: false,
+      language_in: 'ECMASCRIPT6',
+      language_out: 'ECMASCRIPT5',
       summary_detail_level: 3,
       angular_pass: true,
       compilation_level: 'ADVANCED_OPTIMIZATIONS',
@@ -58,6 +60,8 @@ var closureConf = {
     compilerFlags: {
       closure_entry_point: 'app',
       debug: true,
+      language_in: 'ECMASCRIPT6',
+      language_out: 'ECMASCRIPT5',
       summary_detail_level: 3,
       angular_pass: true,
       formatting: 'PRETTY_PRINT',

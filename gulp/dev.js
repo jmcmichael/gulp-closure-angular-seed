@@ -11,6 +11,7 @@ var gulp = require('gulp'),
   gutil = require('gulp-util'),
   glob = require('globby').sync,
   //stylint = require('gulp-stylint'),
+  transpiler = require('gulp-babel'),
   exec = require('child_process').exec,
   sequence = require('run-sequence'),
   debug = require('gulp-debug'),
@@ -60,12 +61,20 @@ gulp.task('dev:inject', function(cb) {
       }
     }))
     .pipe(inject(allDeps, { ignorePath: ['app/', '.tmp/'], addRootSlash: false }))
-    .pipe(gulp.dest(conf.dirs.app));
+    .pipe(gulp.dest(conf.dirs.temp));
 });
 
 // prep tasks for dev - now it just copies goog deps for easy access in .tmp
 gulp.task('dev:prep', function(cb) {
   sequence('prep:goog', 'dev:prep:app-deps', cb);
+});
+
+gulp.task('dev:prep:transpile', function() {
+  return gulp.src(conf.scripts.dev, { base: 'app/'})
+    .pipe(transpiler({
+      presets: ['es2015']
+    }))
+    .pipe(gulp.dest(conf.dirs.temp));
 });
 
 gulp.task('dev:prep:app-deps', function(done) {
@@ -86,31 +95,7 @@ gulp.task('dev:prep:app-deps', function(done) {
         gutil.log('Wrote app-deps.js to ' + conf.dirs.app);
       }
       gulp.src(depsPath)
-        .pipe(gulp.dest(conf.dirs.app));
-      done();
-    });
-  });
-});
-
-gulp.task('dev:prep:app-modules', function(done) {
-  var googBase = gulp.src([conf.dirs.app + '/goog/base.js'], {base: 'goog/'});
-  var devFiles = gulp.src(conf.scripts.dev);
-  temp.mkdir('closure-compiler-temp', function(err, tmpPath) {
-    if (err) {
-      done(err, 'Error creating temp directory.');
-    }
-    var depsPath = tmpPath + '/' + conf.depsWriter.fileName;
-    var command = conf.depsWriter.exec +
-      ' --root_with_prefix="' + conf.dirs.app + '/ ../"' +
-      ' --output_file="' + tmpPath + '/app-deps.js"';
-    exec(command, function(error, stdout, stderr) {
-      if (error) {
-        gutil.log('stderr: ' + error);
-      } else {
-        gutil.log('Wrote app-deps.js to ' + conf.dirs.app);
-      }
-      gulp.src(depsPath)
-        .pipe(gulp.dest(conf.dirs.app));
+        .pipe(gulp.dest(conf.dirs.temp));
       done();
     });
   });
