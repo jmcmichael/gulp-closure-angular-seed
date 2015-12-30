@@ -15,7 +15,7 @@ var gulp = require('gulp'),
   root = require('app-root-path'),
   server = require('browser-sync');
 
-gulp.task('serve', ['serve:dev'])
+gulp.task('serve', ['serve:dev']);
 
 gulp.task('serve:dev', ['serve:dev:prep'], function(done) {
   server({
@@ -23,7 +23,7 @@ gulp.task('serve:dev', ['serve:dev:prep'], function(done) {
     directory: false,
     port: 9000,
     server: {
-      baseDir: ['app', '.tmp'],
+      baseDir: ['.tmp'],
       index: 'index.html',
       routes: {
         '/bower_components': './bower_components'

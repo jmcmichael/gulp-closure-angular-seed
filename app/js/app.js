@@ -34,7 +34,7 @@ angular.element(document).ready(function() {
    */
   function config($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.otherwise('/first');
+     $urlRouterProvider.otherwise('/first');
 
   }
 

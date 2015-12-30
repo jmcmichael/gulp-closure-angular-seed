@@ -13,11 +13,13 @@ var gulp = require('gulp'),
 // creates a symlink to the closure goog library
 gulp.task('prep:goog', function(done) {
   var dest = root + '/node_modules/google-closure-library/closure/goog';
-  var path = root + '/app/goog';
+  var appPath = root + '/app/goog';
+  var tempPath = conf.dirs.temp + '/goog';
 
   return gulp.src(dest)
     .pipe(debug({title: 'symlink src:'}))
-    .pipe(symlink(path, {force:true}));
+    .pipe(symlink(appPath, {force:true}))
+    .pipe(symlink(tempPath, {force:true}));
 });
 
 // copies vendor scripts and styles to dist/lib
