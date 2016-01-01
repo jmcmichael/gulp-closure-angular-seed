@@ -21,6 +21,8 @@ my.first.Ctrl = function() {
    */
   this.hello = 'hello';
 
-  this.range = [1,2,3,4,5].map((int) => { return int })
+  let range = [1,2,3,4,5]
+
+  this.range = range.map((int) => { return int })
 
 };

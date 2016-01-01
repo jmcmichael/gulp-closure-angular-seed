@@ -25,9 +25,9 @@ gulp.task('test:unit', ['dev:prep:app-deps', 'prep:copylibs'], function(done) {
   }, done).start();
 });
 
-gulp.task('test:unit:ci', ['dev:prep:app-deps', 'prep:copylibs'], function(done) {
+gulp.task('test:unit:remote', ['dev:prep:app-deps', 'prep:copylibs'], function(done) {
   new unitServer({
-    configFile: root + '/test/unit/karma-ci.conf.js',
+    configFile: root + '/test/unit/karma-remote.conf.js',
     singleRun: true
   }, done).start();
 });
@@ -39,49 +39,11 @@ gulp.task('test:unit:dist', ['build'], function(done) {
   }, done).start();
 });
 
-gulp.task('test:unit:dist:ci', ['build'], function(done) {
+gulp.task('test:unit:dist:remote', ['build'], function(done) {
   new unitServer({
-    configFile: root + '/test/unit/karma-build-ci.conf.js',
+    configFile: root + '/test/unit/karma-build-remote.conf.js',
     singleRun: true
   }, done).start();
-});
-
-gulp.task('test:unit:prep', ['dev:prep:app-deps'], function() {
-  var googBase = gulp.src([conf.dirs.app + '/goog/base.js'], {base: 'goog/', read: false});
-  var appDeps = gulp.src([conf.dirs.app + '/app-deps.js'], {read: false});
-  //var appFiles = gulp.src([conf.scripts.dev], {read: false});
-  var appFiles = gulp.src([conf.dirs.app + '/js/app.js']);
-
-  var allDeps = es.merge(googBase, appDeps, appFiles)
-    .pipe(order([
-      '**/*/base.js',
-      '**/*/deps.js',
-      '**/*/app-deps.js',
-      '**/*/app.js'
-    ]))
-    .pipe(debug({title: 'test:unit:prep allDeps'}));
-
-  return gulp.src(root + '/test/unit/karma*.conf.js')
-    .pipe(wiredep({
-      directory: 'bower_components',
-      devDependencies: true,
-      exclude: [],
-      ignorePath: '../../',
-      fileTypes: {
-        js: {
-          block: /(([ \t]*)\/\/\s*bower:*(\S*))(\n|\r|.)*?(\/\/\s*endbower)/gi,
-          detect: {
-            js: /'(.*\.js)'/gi
-            //js: /['\']([^'\']+\.js)['\'],?/gi
-          },
-          replace: {
-            js: '{pattern: "{{filePath}}", watched: false, included: true, served: true},'
-            //js: '"{{filePath}}",'
-          }
-        }        
-      }
-    }))
-    .pipe(gulp.dest(root + '/test/unit'));
 });
 
 gulp.task('test:e2e', ['serve'], function(callback) {

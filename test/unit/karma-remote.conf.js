@@ -19,42 +19,55 @@ module.exports = function(config) {
   }
 
   var customLaunchers = {
-    sl_chrome: {
-      base: 'SauceLabs',
-      browserName: 'chrome',
-      platform: 'Windows 7',
-      version: '35'
-    },
-    sl_firefox: {
-      base: 'SauceLabs',
-      browserName: 'firefox',
-      version: '30'
-    },
+    //sl_chrome: {
+    //  base: 'SauceLabs',
+    //  browserName: 'chrome',
+    //  platform: 'Windows 7',
+    //  version: '35'
+    //},
+    //sl_firefox: {
+    //  base: 'SauceLabs',
+    //  browserName: 'firefox',
+    //  version: '30'
+    //},
     sl_ios_safari: {
       base: 'SauceLabs',
       browserName: 'iphone',
       platform: 'OS X 10.10',
       version: '9.1'
     },
-    sl_osx_safari: {
-      base: 'SauceLabs',
-      browserName: 'safari',
-      platform: 'OS X 10.10',
-      version: '8.0'
-    },
-    sl_ie_11: {
+    //sl_osx_safari: {
+    //  base: 'SauceLabs',
+    //  browserName: 'safari',
+    //  platform: 'OS X 10.10',
+    //  version: '8.0'
+    //},
+    //sl_ie_11: {
+    //  base: 'SauceLabs',
+    //  browserName: 'internet explorer',
+    //  platform: 'Windows 8.1',
+    //  version: '11'
+    //},
+    sl_ie_10: {
       base: 'SauceLabs',
       browserName: 'internet explorer',
-      platform: 'Windows 8.1',
-      version: '11'
+      platform: 'Windows 7',
+      version: '10'
     }
   };
 
   config.set({
     basePath: '../../',
     files: [
-      // WARNING: karma file config objects auto-generated, do not edit or
-      // remove bower/endbower placeholders!
+      {
+        pattern: 'node_modules/babel-polyfill/dist/polyfill.js',
+        watched: false,
+        included: true,
+        served: true
+      },
+
+      // NOTE: karma file config objects auto-generated, do not edit or
+      // remove bower/endbower placeholders
 
       // bower:js
       {pattern: 'bower_components/angular/angular.js', watched: false, included: true, served: true},
@@ -89,9 +102,9 @@ module.exports = function(config) {
     ],
     preprocessors: {
       // source files are preprocessed for dependencies
-      'app/js/**/*.js': ['closure'],
-      'app/states/**/*.js': ['closure'],
-      'app/components/**/*.js': ['closure'],
+      'app/js/**/*.js': ['closure', 'babel'],
+      'app/states/**/*.js': ['closure', 'babel'],
+      'app/components/**/*.js': ['closure', 'babel'],
 
       // external deps
       'app/goog/closure/**/*.js': ['closure-deps'],
@@ -100,18 +113,25 @@ module.exports = function(config) {
       'app/index.html': ['ngbootstrapfix'],
 
       // tests are preprocessed for dependencies (closure) and for it/describe (closure-iit)
-      'app/**/*.spec.js': ['closure', 'closure-iit']
+      'app/**/*.spec.js': ['closure', 'closure-iit', 'babel']
     },
     plugins: [
       'karma-jasmine',
       'karma-spec-reporter',
       'karma-closure',
+      'karma-babel-preprocessor',
       'karma-ng-bootstrap-fix-preprocessor',
       'karma-sauce-launcher'
     ],
     frameworks: ['jasmine', 'closure'],
     browsers: Object.keys(customLaunchers),
     customLaunchers: customLaunchers,
+    babelPreprocessor: {
+      options: {
+        presets: ['es2015'],
+        sourceMap: 'inline'
+      }
+    },
     reporters: ['spec', 'saucelabs'],
     sauceLabs: {
       testName: 'Karma and Sauce Labs demo'

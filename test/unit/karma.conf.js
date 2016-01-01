@@ -7,8 +7,6 @@ module.exports = function(config) {
   config.set({
     basePath: '../../',
     files: [
-
-      // babel shim
       {
         pattern: 'node_modules/babel-polyfill/dist/polyfill.js',
         watched: false,
@@ -17,7 +15,7 @@ module.exports = function(config) {
       },
 
       // NOTE: the following bower deps are auto-generated, do not edit or
-      // remove bower/endbower placeholders!
+      // remove bower/endbower placeholders
       // bower:js
       {pattern: 'bower_components/angular/angular.js', watched: false, included: true, served: true},
       {pattern: 'bower_components/angular-ui-router/release/angular-ui-router.js', watched: false, included: true, served: true},

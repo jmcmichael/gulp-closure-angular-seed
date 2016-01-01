@@ -42,18 +42,31 @@ module.exports = function(config) {
     //  platform: 'OS X 10.10',
     //  version: '8.0'
     //},
-    sl_ie_11: {
+    //sl_ie_11: {
+    //  base: 'SauceLabs',
+    //  browserName: 'internet explorer',
+    //  platform: 'Windows 8.1',
+    //  version: '11'
+    //},
+    sl_ie_10: {
       base: 'SauceLabs',
       browserName: 'internet explorer',
-      platform: 'Windows 8.1',
-      version: '11'
+      platform: 'Windows 7',
+      version: '10'
     }
   };
 
   config.set({
     basePath: '../../',
     files: [
-      // WARNING: karma file config objects auto-generated, do not edit or
+      {
+        pattern: 'node_modules/babel-polyfill/dist/polyfill.js',
+        watched: false,
+        included: true,
+        served: true
+      },
+
+      // NOTE: karma file config objects auto-generated, do not edit or
       // remove bower/endbower placeholders!
 
       // bower:js
@@ -80,12 +93,13 @@ module.exports = function(config) {
       'dist/app/index.html': ['ngbootstrapfix'],
 
       // tests are preprocessed for dependencies (closure) and for it/describe (closure-iit)
-      'app/**/*.spec.js': ['closure', 'closure-iit']
+      'app/**/*.spec.js': ['closure', 'closure-iit', 'babel']
     },
     plugins: [
       'karma-jasmine',
       'karma-spec-reporter',
       'karma-closure',
+      'karma-babel-preprocessor',
       'karma-ng-bootstrap-fix-preprocessor',
       'karma-sauce-launcher'
     ],
