@@ -7,6 +7,7 @@ var root = require('app-root-path');
 module.exports.conf = {
   scripts: {
     build: [
+      'app/utils/**/*.js',
       'app/js/**/*.js',
       'app/states/**/*.js',
       'app/components/**/*.js',
@@ -24,6 +25,7 @@ module.exports.conf = {
       '!**/*.spec.js'
     ],
     dev: [
+      'app/utils/**/*.js',
       'app/js/**/*.js',
       'app/states/**/*.js',
       'app/components/**/*.js',

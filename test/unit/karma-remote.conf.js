@@ -81,6 +81,7 @@ module.exports = function(config) {
       {pattern: 'app/goog/**/*.js', watched: false, included: false, served: true },
 
       // app
+      {pattern: 'app/utils/register.js', watched: true, included: true, served: true},
       {pattern: 'app/app-deps.js', watched: true, included: true, served: true},
       {pattern: 'app/js/app.js', watched: true, included: true, served: true},
 

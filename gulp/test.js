@@ -60,4 +60,18 @@ gulp.task('test:e2e', ['serve'], function(callback) {
     .on('end', callback);
 });
 
+gulp.task('test:e2e:remote', ['serve'], function(callback) {
+  gulp
+    .src([root + '/test/e2e/scenarios.js', root + '/app/states/**/*.scenario.js'])
+    .pipe(e2eServer({
+      'configFile': root + '/test/e2e/protractor-remote.conf.js',
+      'debug': false,
+      'autoStartStopServer': true
+    }))
+    .on('error', function(e) {
+      console.log(e);
+    })
+    .on('end', callback);
+});
+
 gulp.task('test', ['test:unit', 'test:e2e']);
