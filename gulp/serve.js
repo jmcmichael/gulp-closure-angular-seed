@@ -27,10 +27,10 @@ gulp.task('serve:dev', ['serve:dev:prep'], function(done) {
       index: 'index.html',
       routes: {
         '/bower_components': './bower_components'
-      },
-      socket: {
-        domain: "localhost:3000"
       }
+    },
+    socket: {
+      domain: "localhost:3000"
     }
   });
   gulp.watch(conf.styles, ['dev:styles']).on('change', server.reload);
@@ -46,26 +46,21 @@ gulp.task('serve:dev:prep', function(done) {
 gulp.task('serve:dist', ['build'], function(done) {
   server.init({
     server: {
+      notify: false,
+      directory: false,
       baseDir: 'dist/app',
       index: 'index.html'
+    },
+    socket: {
+      domain: 'localhost:3000'
     }
   });
 
-  //gulp.watch(conf.lib, ['clean:dist:lib', 'build:copydep', 'build:inject'])
-  //  .on('change', server.reload);
-
-  //gulp.watch(conf.index, ['build:inject'])
-  //  .on('change', server.reload);
-  //
-  //gulp.watch(conf.styles, ['clean:dist:styles', 'build:styles', 'build:inject'])
-  //  .on('change', server.reload);
-  //
-  //gulp.watch(conf.templates, ['clean:dist:js', 'build:templates', 'build:inject'])
-  //  .on('change', server.reload);
-  //
-  //gulp.watch(conf.scripts.build, ['clean:dist:js', 'build:prep', 'build:inject'])
-  //  .on('change', server.reload);
+  gulp.watch(conf.styles, ['build:styles', 'build:inject']).on('change', server.reload);
+  gulp.watch(conf.templates, ['build']).on('change', server.reload);
+  gulp.watch(conf.scripts.build, ['build']).on('change', server.reload);
 
   done();
 });
+
 
