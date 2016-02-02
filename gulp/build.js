@@ -116,8 +116,7 @@ gulp.task('build:scripts', function() {
     .pipe(debug({title: 'build:scripts - pre compile'}))
     .pipe(compiler(closureConf.default))
     .pipe(debug({title: 'build:scripts- post compile'}))
-    .pipe(gulp.dest(conf.dirs.dist + '/app/js'))
-    .pipe(server.stream());
+    .pipe(gulp.dest(conf.dirs.dist + '/app/js'));
 });
 
 // debug script compile, toggles closure's debug mode and pretty-print
@@ -128,8 +127,7 @@ gulp.task('build:debug:scripts', function() {
     .pipe(debug({title: 'build:debug:scripts - pre compile'}))
     .pipe(compiler(closureConf.debug))
     .pipe(debug({title: 'build:debug:scripts - post compile'}))
-    .pipe(gulp.dest(conf.dirs.dist + '/app/js'))
-    .pipe(server.stream());
+    .pipe(gulp.dest(conf.dirs.dist + '/app/js'));
 });
 
 // concatenates and compiles .styl files with sourcemap
@@ -145,8 +143,7 @@ gulp.task('build:styles', ['clean:dist:styles'], function() {
         return file.relative + '.map';
       }
     }))
-    .pipe(gulp.dest(conf.dirs.dist + '/app/styles'))
-    .pipe(server.stream());
+    .pipe(gulp.dest(conf.dirs.dist + '/app/styles'));
 });
 
 // collects all angular templates (*.tpl.html), creates templateCache module script
@@ -210,6 +207,5 @@ gulp.task('build:inject', ['prep:copylibs'], function(cb) {
       preserveLineBreaks: true,
       removeComments: true
     }))
-    .pipe(gulp.dest(conf.dirs.dist + '/app'))
-    .pipe(server.stream());
+    .pipe(gulp.dest(conf.dirs.dist + '/app'));
 });
