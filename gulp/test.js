@@ -15,7 +15,7 @@ var gulp = require('gulp'),
   e2eServer = require('gulp-angular-protractor'),
   root = require('app-root-path');
 
-gulp.task('test:unit', ['dev:prep:app-deps', 'prep:copylibs'], function(done) {
+gulp.task('test:unit', ['dev:prep', 'prep:copylibs'], function(done) {
   new unitServer({
     configFile: root + '/test/unit/karma.conf.js',
     singleRun: true,
