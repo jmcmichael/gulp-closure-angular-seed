@@ -27,13 +27,15 @@ gulp.task('serve:dev', ['serve:dev:prep'], function(done) {
       index: 'index.html',
       routes: {
         '/bower_components': './bower_components'
+      },
+      socket: {
+        domain: "localhost:3000"
       }
     }
   });
-  //gulp.watch(conf.styles, ['dev:styles']).on('change', server.reload);
-  //gulp.watch(conf.templates, ['dev:templates']).on('change', server.reload);
-  //gulp.watch(conf.scripts.build, ['clean:dist:js', 'build:prep', 'build:inject'])
-  //  .on('change', server.reload);
+  gulp.watch(conf.styles, ['dev:styles']).on('change', server.reload);
+  gulp.watch(conf.templates, ['dev:prep:templates']).on('change', server.reload);
+  gulp.watch(conf.scripts.build, ['dev:prep:transpile', 'dev:prep:app-deps', 'dev:inject']).on('change', server.reload);
   done();
 });
 

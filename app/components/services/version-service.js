@@ -10,7 +10,7 @@ goog.provide('my.version.Service');
  * @constructor
  */
 my.version.Service = function() {
-  this.version = '0.0.1';
+  this.version = '0.0.2';
 };
 
 /**

@@ -1,10 +1,10 @@
 {
-  "name": "civic-workflow-2",
-  "version": "0.0.1",
+  "name": "gulp-closure-angular-seed",
+  "version": "0.0.2",
   "authors": [
-    "Joshua McMichael <jmcmicha@genome.wustl.edu>"
+    "Joshua McMichael <josh@jmcmichael.com>"
   ],
-  "description": "Client libraries for the Closure-based civic workflow",
+  "description": "Angular app dev/production pipeline based on gulp and Google Closure Compiler",
   "main": "app/js/app.js",
   "moduleType": [
     "es6"
