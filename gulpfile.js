@@ -28,6 +28,14 @@ gulp.task('prep:copylibs', function() {
     .pipe(gulp.dest(conf.dirs.dist + '/app/lib'));
 });
 
+// copies vendor scripts and styles to .tmp
+gulp.task('dev:prep:copylibs', function() {
+  return gulp.src('app/libs/**/*.js', { base: 'app/libs' })
+    .pipe(debug({title:'dev:prep:copylibs:'}))
+    .pipe(gulp.dest(conf.dirs.temp + '/libs'));
+});
+
+
 gulp.task('default', ['clean'], function () {
   gulp.start('build');
 });

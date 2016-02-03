@@ -30,7 +30,7 @@ gulp.task('serve:dev', ['serve:dev:prep'], function(done) {
       }
     },
     socket: {
-      domain: "localhost:3000"
+      domain: "localhost:9000"
     }
   });
   gulp.watch(conf.styles, ['dev:styles']).on('change', server.reload);
@@ -48,11 +48,12 @@ gulp.task('serve:dist', ['build'], function(done) {
     server: {
       notify: false,
       directory: false,
+      port: 9000,
       baseDir: 'dist/app',
       index: 'index.html'
     },
     socket: {
-      domain: 'localhost:3000'
+      domain: 'localhost:9000'
     }
   });
 

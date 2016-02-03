@@ -33,15 +33,16 @@ gulp.task('dev:inject', function(cb) {
   var googBase = gulp.src([conf.dirs.app + '/goog/base.js'], {base: 'goog/'});
   var appDeps = gulp.src([conf.dirs.app + '/app-deps.js']);
   var cssDeps = gulp.src([conf.dirs.temp + '/**/*.css']); // .pipe(debug({title: 'cssDeps:'}));
+  var libs = gulp.src([conf.dirs.libs + '/**/*.js']).pipe(debug({title: 'libs:'}));
   var appFiles = gulp.src([conf.dirs.app + '/js/app.js']);
 
-  var allDeps = es.merge(googBase, appDeps, appFiles, cssDeps)
+  var allDeps = es.merge(googBase, libs, appDeps, appFiles, cssDeps)
     .pipe(order([
-      '**/*/base.js',
-      '**/*/deps.js',
-      '**/*/app-deps.js',
-      '**/*/app.js'
-    ]))
+      '**/base.js',
+      '**/app-deps.js',
+      '**/libs/*.js',
+      '**/js/app.js'
+    ], {base:'app/'}))
     .pipe(debug({title: 'allDeps: '}));
 
   return gulp.src(conf.dirs.app + '/index.html')
@@ -64,7 +65,7 @@ gulp.task('dev:inject', function(cb) {
 
 // prep tasks for dev - now it just copies goog deps for easy access in .tmp
 gulp.task('dev:prep', function(done) {
-  sequence('prep:goog', 'dev:prep:app-deps', 'dev:prep:transpile', 'dev:prep:templates', done);
+  sequence('prep:goog', 'dev:prep:app-deps', 'dev:prep:transpile', 'dev:prep:templates', 'dev:prep:copylibs', done);
 });
 
 gulp.task('dev:prep:transpile', function() {
